@@ -16,7 +16,7 @@
                 <article class="card h-100">
                     <div class="card-body">
                         <h2 class="card-title">{{ product.nom }}</h2>
-                        <img class="card-img-top" src="{{ asset('uploads/Products_images/' ~ product.photo) }}" alt="{{ category.nom }}" style="width:100%">
+                        <img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ category.nom }}" style="width:100%">
                         <p class="card-text"> {{ product.description }} </p>
                         <a href="{{ path('products_details', {'slug': product.slug  })}}" class="btn btn-primary"> Voir les details</a>
                     </div>
