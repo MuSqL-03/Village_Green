@@ -3,29 +3,31 @@
 {% block body %}
 <main class="container mt-5">
     <section class="row text-center">
-        <form class="d-flex" method="get" action="{{ path('products_search') }}">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Search for products..." aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+        
+        <!-- Title Section -->
         <div class="col-12 mb-4">
-          <h1 class="display-4 text-primary fw-bold">Bienvenue chez Village Green</h1>
-         <p class="lead">Découvrez notre incroyable sélection de produits</p>
-   </div>
+            <h1 class="display-4 text-primary fw-bold">Bienvenue chez Village Green</h1>
+            <p class="lead">Découvrez notre incroyable sélection de produits</p>
+        </div>
 
+        <!-- Categories Section -->
         {% for category in categories %}
             <div class="col-md-4 mb-4">
                 <div class="card shadow-lg border-0">
-                    <div class="image-container overflow-hidden">
+                    <div class="image-container overflow-hidden d-flex justify-content-center align-items-center">
                         <a href="{{ path('sous_categories', {id: category.id}) }}">
-                            <img class="card-img-top img-fluid category-image" src="{{ asset('uploads/categories/' ~ category.photo) }}" alt="{{ category.nom }}" style="width: 220px;">
+                            <img class="card-img-top img-fluid category-image" 
+                                 src="{{ asset('uploads/categories/' ~ category.photo) }}" 
+                                 alt="{{ category.nom }}">
                         </a>
                     </div>
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ category.nom }}</h5>
+                        <h5 class="card-title fw-bold">{{ category.nom }}</h5>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </section>
 </main>
+
 {% endblock %}
