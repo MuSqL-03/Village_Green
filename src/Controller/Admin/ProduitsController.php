@@ -33,6 +33,8 @@ use Symfony\Component\Routing\Attribute\Route;
             $entityManager->persist($product);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Produit ajouté avec succèc');
+
 
 
             return $this->redirectToRoute('admin_products_index', [], Response::HTTP_SEE_OTHER);
@@ -70,6 +72,10 @@ use Symfony\Component\Routing\Attribute\Route;
         // on vérifie si l'utilisateur peut éditer avec le voter
         $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
 
+       /*  // on divise le prix le formulaire
+        $prix = $product->getPrix() * 100;
+        $product->setPrix($prix);
+ */
         return $this->render('admin/produits/edit.html.twig', [
             'product' => $product,
             'form' => $form,

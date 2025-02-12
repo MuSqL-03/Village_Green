@@ -26,11 +26,13 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.nom }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.prix }}</td>
+                <td>{{ product.prix / 100 }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ product.referenceFournisseur }}</td>
-                <td>{{ product.photo }}</td>
+                <td><img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}" alt=" {{ product.nom }} "
+                    style="width:100%">
+               </td>
                 <td>{{ product.slug }}</td>
                 <td>
                     <a href="{{ path('admin_products_app_produits_show', {'id': product.id}) }}">show</a>

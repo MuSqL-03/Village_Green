@@ -37,7 +37,8 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td>{{ product.photo }}</td>
+                <td><img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}"  style="width:30%">
+            </td>
             </tr>
             <tr>
                 <th>Slug</th>

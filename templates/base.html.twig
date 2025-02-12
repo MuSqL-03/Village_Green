@@ -12,79 +12,22 @@
     
     <!-- Bootstrap JS (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-   
 </head>
 <body>
 
-    <!-- Navbar -->
-   <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <!-- Brand Name (Left) -->
-        <a class="navbar-brand fw-bold" href="{{ path('main') }}">Village Green</a>
+    {% include "_partials/_nav.html.twig" %}
 
-        <!-- Navbar Toggler for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Left-aligned Navigation Links -->
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('main') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('products_index') }}">Products</a>
-                </li>
-            </ul>
-
-            <!-- Right-aligned User Links -->
-            <ul class="navbar-nav ms-auto">
-                {% if app.user %}
-                    <li class="nav-item">
-                        <a href="{{ path('main') }}" class="nav-link">Mon Compte</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_logout') }}" class="nav-link">Me déconnecter</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{{ path('app_register') }}" class="nav-link">M'inscrire</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_login') }}" class="nav-link">Me connecter</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-    <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <!-- Image Container -->
-        <div class="hero-image-container" style="position: relative; width: 100%; max-width: 100%; margin: auto;">
-            <!-- Background Image -->
-            <img src="{{ asset('uploads/bg.jpg') }}" alt="bg" class="hero-image" style="width: 100%; height: 400px;">
-
-            <!-- Search Bar Inside the Image -->
-            <form class="hero-search" method="get" action="{{ path('products_search') }}" 
-                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40%;">
-                <input class="form-control" type="search" name="search" 
-                       placeholder="Search for products..." aria-label="Search"
-                       style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+    <!-- Hero Section -->
+    <section class="hero-section position-relative text-center">
+        <img src="{{ asset('uploads/bg.jpg') }}" alt="Background Image" class="img-fluid w-100" style="height: 400px;">
+        
+        <!-- Search Bar Inside Image -->
+        <div class="position-absolute top-50 start-50 translate-middle" style="width: 40%;">
+            <form method="get" action="{{ path('products_search') }}">
+                <input class="form-control" type="search" name="search" placeholder="Search for products..." aria-label="Search">
             </form>
         </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Main Content Block -->
     <div class="container mt-4">

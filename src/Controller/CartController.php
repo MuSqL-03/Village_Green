@@ -118,7 +118,7 @@ class CartController extends AbstractController
 
     #[Route('/empty', name: 'empty')]
     public function empty( SessionInterface $session)
-    {
+    { 
           $session->remove('panier');
 
           return $this->redirectToRoute('cart_index');
