@@ -44,11 +44,17 @@
                         <td>
                             <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a>
                         </td>
+                        <tr>
+                        
                     </tr>
                 </tfoot>
-            </table>      
+            </table>    
+           
         </div>
-              
+        {% if data|length > 0 %}
+    <a href="{{ path('cart_checkout') }}" class="btn btn-primary">Commander</a>
+{% endif %}
+        
 
 
 {% endblock %}

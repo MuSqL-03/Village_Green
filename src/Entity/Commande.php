@@ -22,8 +22,8 @@ class Commande
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
-    private ?int $reduction = null;
+    #[ORM\Column(type: "float", nullable: false, options: ["default" => 0])]
+    private float $reduction = 0.0;
 
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
@@ -49,21 +49,12 @@ class Commande
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $total = null;
 
-    /**
-     * @var Collection<int, CommandeDetails>
-     */
     #[ORM\OneToMany(targetEntity: CommandeDetails::class, mappedBy: 'commande')]
     private Collection $commandeDetails;
 
-    /**
-     * @var Collection<int, PaymentMethode>
-     */
     #[ORM\OneToMany(targetEntity: PaymentMethode::class, mappedBy: 'commande')]
     private Collection $paymentMethodes;
 
-    /**
-     * @var Collection<int, Livraison>
-     */
     #[ORM\OneToMany(targetEntity: Livraison::class, mappedBy: 'commande')]
     private Collection $livraisons;
 
@@ -76,7 +67,6 @@ class Commande
         $this->paymentMethodes = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
-
     }
 
     public function getId(): ?int
@@ -92,7 +82,6 @@ class Commande
     public function setReference(string $reference): static
     {
         $this->reference = $reference;
-
         return $this;
     }
 
@@ -104,19 +93,17 @@ class Commande
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
-    public function getReduction(): ?int
+    public function getReduction(): float
     {
         return $this->reduction;
     }
 
-    public function setReduction(int $reduction): static
+    public function setReduction(float $reduction): static
     {
         $this->reduction = $reduction;
-
         return $this;
     }
 
@@ -128,7 +115,6 @@ class Commande
     public function setEtat(string $etat): static
     {
         $this->etat = $etat;
-
         return $this;
     }
 
@@ -140,7 +126,6 @@ class Commande
     public function setDateFacture(\DateTimeInterface $dateFacture): static
     {
         $this->dateFacture = $dateFacture;
-
         return $this;
     }
 
@@ -152,7 +137,6 @@ class Commande
     public function setAdresseFacture(string $adresseFacture): static
     {
         $this->adresseFacture = $adresseFacture;
-
         return $this;
     }
 
@@ -164,7 +148,6 @@ class Commande
     public function setDateLivraison(\DateTimeInterface $dateLivraison): static
     {
         $this->dateLivraison = $dateLivraison;
-
         return $this;
     }
 
@@ -176,7 +159,6 @@ class Commande
     public function setAdresseLivraison(string $adresseLivraison): static
     {
         $this->adresseLivraison = $adresseLivraison;
-
         return $this;
     }
 
@@ -188,7 +170,6 @@ class Commande
     public function setUsers(?Users $users): static
     {
         $this->users = $users;
-
         return $this;
     }
 
@@ -200,7 +181,6 @@ class Commande
     public function setCoefficient(float $coefficient): static
     {
         $this->coefficient = $coefficient;
-
         return $this;
     }
 
@@ -212,13 +192,9 @@ class Commande
     public function setTotal(string $total): static
     {
         $this->total = $total;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, CommandeDetails>
-     */
     public function getCommandeDetails(): Collection
     {
         return $this->commandeDetails;
@@ -230,25 +206,19 @@ class Commande
             $this->commandeDetails->add($commandeDetail);
             $commandeDetail->setCommande($this);
         }
-
         return $this;
     }
 
     public function removeCommandeDetail(CommandeDetails $commandeDetail): static
     {
         if ($this->commandeDetails->removeElement($commandeDetail)) {
-            // set the owning side to null (unless already changed)
             if ($commandeDetail->getCommande() === $this) {
                 $commandeDetail->setCommande(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, PaymentMethode>
-     */
     public function getPaymentMethodes(): Collection
     {
         return $this->paymentMethodes;
@@ -260,25 +230,19 @@ class Commande
             $this->paymentMethodes->add($paymentMethode);
             $paymentMethode->setCommande($this);
         }
-
         return $this;
     }
 
     public function removePaymentMethode(PaymentMethode $paymentMethode): static
     {
         if ($this->paymentMethodes->removeElement($paymentMethode)) {
-            // set the owning side to null (unless already changed)
             if ($paymentMethode->getCommande() === $this) {
                 $paymentMethode->setCommande(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Livraison>
-     */
     public function getLivraisons(): Collection
     {
         return $this->livraisons;
@@ -290,19 +254,16 @@ class Commande
             $this->livraisons->add($livraison);
             $livraison->setCommande($this);
         }
-
         return $this;
     }
 
     public function removeLivraison(Livraison $livraison): static
     {
         if ($this->livraisons->removeElement($livraison)) {
-            // set the owning side to null (unless already changed)
             if ($livraison->getCommande() === $this) {
                 $livraison->setCommande(null);
             }
         }
-
         return $this;
     }
 
@@ -314,7 +275,6 @@ class Commande
     public function setDatePayment(\DateTimeInterface $datePayment): static
     {
         $this->datePayment = $datePayment;
-
         return $this;
     }
 }

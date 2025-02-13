@@ -2,13 +2,23 @@
 
 namespace App\Controller;
 
+
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Commande;
+use App\Entity\CommandeDetails;
 use App\Entity\Products;
+use App\Entity\Users;
 use App\Repository\ProductsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/cart', name: 'cart_')]
 
@@ -125,5 +135,130 @@ class CartController extends AbstractController
 
 
     }
+
+    #[Route('/checkout', name: 'checkout')]
+    public function checkout(Security $security): Response
+    {
+        $user = $security->getUser();
+        
+        return $this->render('cart/checkout.html.twig', [
+            'user' => $user,
+            'stripePublicKey' => $_ENV['STRIPE_PUBLIC_KEY'] // Pass Stripe public key
+        ]);
+    }
+    
+    #[Route('/create-checkout-session', name: 'stripe_checkout')]
+    public function createCheckoutSession(SessionInterface $session, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Security $security): JsonResponse
+    {
+        $user = $security->getUser();
+        $panier = $session->get('panier', []);
+        
+        if (empty($panier)) {
+            return new JsonResponse(['error' => 'Votre panier est vide.'], 400);
+        }
+    
+        Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+    
+        $lineItems = [];
+        foreach ($panier as $id => $quantite) {
+            $product = $productsRepository->find($id);
+            if ($product) {
+                $lineItems[] = [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => ['name' => $product->getNom()],
+                        'unit_amount' => $product->getPrix(), // Convert price to cents
+                    ],
+                    'quantity' => $quantite,
+                ];
+            }
+        }
+    
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('cart_order', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('cart_checkout', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
+    
+        return new JsonResponse(['id' => $checkoutSession->id]);
+    }
+
+
+
+    #[Route('/order', name: 'order')]
+    public function createOrder(SessionInterface $session, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Security $security)
+    {
+        $user = $security->getUser();
+        
+        if (!$user instanceof Users) {
+            $this->addFlash('error', 'Utilisateur non authentifié.');
+            return $this->redirectToRoute('cart_index');
+        }
+    
+        $panier = $session->get('panier', []);
+        
+        if (empty($panier)) {
+            $this->addFlash('warning', 'Votre panier est vide.');
+            return $this->redirectToRoute('cart_index');
+        }
+    
+        // Create a new order
+        $commande = new Commande();
+        $commande->setUsers($user);
+        $commande->setReference(uniqid('CMD_'));
+        $commande->setEtat('En cours');
+        $commande->setCreatedAt(new \DateTimeImmutable());
+        $commande->setDateFacture(new \DateTime()); // Ensures `date_facture` is set
+    
+        // Set required fields with default values
+        $commande->setAdresseFacture($user->getAdresse() ?? 'Adresse non spécifiée');
+        $commande->setDateLivraison(new \DateTime('+3 days')); 
+        $commande->setAdresseLivraison($user->getAdresse() ?? 'Adresse non spécifiée');
+        $commande->setDatePayment(new \DateTime());
+    
+        // Fix: Ensure coefficient is always set
+        $commande->setCoefficient(1.0); // Default coefficient to 1.0
+    
+        $total = 0;
+        $reduction = ($user->getNumeroSiret() !== null) ? 0.20 : 0.0; // Apply discount if SIRET is present
+    
+        foreach ($panier as $id => $quantite) {
+            $product = $productsRepository->find($id);
+            
+            if ($product) {
+                $price = $product->getPrix();
+                if ($reduction > 0) {
+                    $price *= (1 - $reduction);
+                }
+                $total += $price * $quantite;
+    
+                // Create order details
+                $commandeDetail = new CommandeDetails();
+                $commandeDetail->setCommande($commande);
+                $commandeDetail->setProducts($product);
+                $commandeDetail->setQuantite($quantite);
+    
+                $entityManager->persist($commandeDetail);
+            }
+        }
+    
+        $commande->setTotal($total); // Ensure proper price calculation
+        $entityManager->persist($commande);
+        $entityManager->flush();
+    
+        // Clear the cart session
+        $session->remove('panier');
+    
+        $this->addFlash('success', 'Votre commande a été enregistrée avec succès.');
+        
+        return $this->redirectToRoute('cart_index');
+    }
+    
+
+
+ 
+
 
 }
