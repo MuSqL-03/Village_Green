@@ -140,26 +140,39 @@ class CartController extends AbstractController
     public function checkout(Security $security): Response
     {
         $user = $security->getUser();
+    
+        // ✅ Ensure user is authenticated
+        if (!$user instanceof Users) {
+            $this->addFlash('error', 'Vous devez être connecté pour valider votre panier.');
+            return $this->redirectToRoute('app_login');
+        }
         
         return $this->render('cart/checkout.html.twig', [
             'user' => $user,
-            'stripePublicKey' => $_ENV['STRIPE_PUBLIC_KEY'] // Pass Stripe public key
+            'stripePublicKey' => $_ENV['STRIPE_PUBLIC_KEY']
         ]);
     }
     
     #[Route('/create-checkout-session', name: 'stripe_checkout')]
-    public function createCheckoutSession(SessionInterface $session, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Security $security): JsonResponse
-    {
+    public function createCheckoutSession(
+        SessionInterface $session, 
+        ProductsRepository $productsRepository, 
+        EntityManagerInterface $entityManager, 
+        Security $security
+    ): JsonResponse {
         $user = $security->getUser();
+        if (!$user instanceof Users) {
+            return new JsonResponse(['error' => 'Vous devez être connecté.'], 401);
+        }
+    
         $panier = $session->get('panier', []);
-        
         if (empty($panier)) {
             return new JsonResponse(['error' => 'Votre panier est vide.'], 400);
         }
     
         Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
-    
         $lineItems = [];
+    
         foreach ($panier as $id => $quantite) {
             $product = $productsRepository->find($id);
             if ($product) {
@@ -167,7 +180,7 @@ class CartController extends AbstractController
                     'price_data' => [
                         'currency' => 'eur',
                         'product_data' => ['name' => $product->getNom()],
-                        'unit_amount' => $product->getPrix(), // Convert price to cents
+                        'unit_amount' => $product->getPrix(), // ✅ Convert to cents
                     ],
                     'quantity' => $quantite,
                 ];
@@ -184,81 +197,91 @@ class CartController extends AbstractController
     
         return new JsonResponse(['id' => $checkoutSession->id]);
     }
-
-
-
+    
     #[Route('/order', name: 'order')]
-    public function createOrder(SessionInterface $session, ProductsRepository $productsRepository, EntityManagerInterface $entityManager, Security $security)
-    {
+    public function createOrder(
+        SessionInterface $session, 
+        ProductsRepository $productsRepository, 
+        EntityManagerInterface $entityManager, 
+        Security $security
+    ): Response {
         $user = $security->getUser();
-        
+    
+        // ✅ Ensure user is authenticated
         if (!$user instanceof Users) {
-            $this->addFlash('error', 'Utilisateur non authentifié.');
-            return $this->redirectToRoute('cart_index');
+            $this->addFlash('error', 'Vous devez être connecté pour passer une commande.');
+            return $this->redirectToRoute('app_login');
         }
     
         $panier = $session->get('panier', []);
         
-        if (empty($panier)) {
+        // ✅ Ensure cart is not empty
+        if (!$panier || count($panier) === 0) {
             $this->addFlash('warning', 'Votre panier est vide.');
             return $this->redirectToRoute('cart_index');
         }
     
-        // Create a new order
-        $commande = new Commande();
-        $commande->setUsers($user);
-        $commande->setReference(uniqid('CMD_'));
-        $commande->setEtat('En cours');
-        $commande->setCreatedAt(new \DateTimeImmutable());
-        $commande->setDateFacture(new \DateTime()); // Ensures `date_facture` is set
-    
-        // Set required fields with default values
-        $commande->setAdresseFacture($user->getAdresse() ?? 'Adresse non spécifiée');
-        $commande->setDateLivraison(new \DateTime('+3 days')); 
-        $commande->setAdresseLivraison($user->getAdresse() ?? 'Adresse non spécifiée');
-        $commande->setDatePayment(new \DateTime());
-    
-        // Fix: Ensure coefficient is always set
-        $commande->setCoefficient(1.0); // Default coefficient to 1.0
-    
+        // ✅ Calculate total BEFORE persisting the order
         $total = 0;
-        $reduction = ($user->getNumeroSiret() !== null) ? 0.20 : 0.0; // Apply discount if SIRET is present
+        $reduction = ($user->getNumeroSiret() !== null) ? 0.20 : 0.0;
     
         foreach ($panier as $id => $quantite) {
             $product = $productsRepository->find($id);
-            
             if ($product) {
                 $price = $product->getPrix();
                 if ($reduction > 0) {
                     $price *= (1 - $reduction);
                 }
                 $total += $price * $quantite;
-    
-                // Create order details
-                $commandeDetail = new CommandeDetails();
-                $commandeDetail->setCommande($commande);
-                $commandeDetail->setProducts($product);
-                $commandeDetail->setQuantite($quantite);
-    
-                $entityManager->persist($commandeDetail);
             }
         }
     
-        $commande->setTotal($total); // Ensure proper price calculation
+        // ✅ Create order and set total BEFORE saving
+        $commande = new Commande();
+        $commande->setUsers($user);
+        $commande->setReference(uniqid('CMD_'));
+        $commande->setEtat('En cours');
+        $commande->setCreatedAt(new \DateTimeImmutable());
+        $commande->setDateFacture(new \DateTime());
+        $commande->setAdresseFacture($user->getAdresse() ?? 'Adresse non spécifiée');
+        $commande->setDateLivraison(new \DateTime('+3 days'));
+        $commande->setAdresseLivraison($user->getAdresse() ?? 'Adresse non spécifiée');
+        $commande->setDatePayment(new \DateTime());
+        $commande->setCoefficient(1.0);
+        $commande->setTotal($total); // ✅ Set total before persisting
+    
         $entityManager->persist($commande);
+    
+        foreach ($panier as $id => $quantite) {
+            $product = $productsRepository->find($id);
+            if ($product) {
+                $price = $product->getPrix();
+                if ($reduction > 0) {
+                    $price *= (1 - $reduction);
+                }
+    
+                $commandeDetails = new CommandeDetails();
+                $commandeDetails->setCommande($commande);
+                $commandeDetails->setProducts($product);
+                $commandeDetails->setQuantite($quantite);
+                $commandeDetails->setPrix($price); 
+    
+                $entityManager->persist($commandeDetails);
+            }
+        }
+    
+        // ✅ Now flush everything together
         $entityManager->flush();
     
-        // Clear the cart session
+        // ✅ Clear cart session after successful order creation
         $session->remove('panier');
     
         $this->addFlash('success', 'Votre commande a été enregistrée avec succès.');
-        
         return $this->redirectToRoute('cart_index');
     }
     
-
-
- 
+    
+    
 
 
 }

@@ -16,6 +16,9 @@ class CommandeDetails
     #[ORM\Column]
     private ?int $quantite = null;
 
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)] // ✅ Ensure correct precision
+    private ?float $prix = null; // ✅ Allow null initially
+
     #[ORM\ManyToOne(inversedBy: 'commandeDetails')]
     private ?Commande $commande = null;
 
@@ -35,7 +38,17 @@ class CommandeDetails
     public function setQuantite(int $quantite): static
     {
         $this->quantite = $quantite;
+        return $this;
+    }
 
+    public function getPrix(): ?float // ✅ Allow null return
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self // ✅ Setter ensures valid price
+    {
+        $this->prix = round($prix, 2); // ✅ Ensure price is rounded correctly
         return $this;
     }
 
@@ -47,7 +60,6 @@ class CommandeDetails
     public function setCommande(?Commande $commande): static
     {
         $this->commande = $commande;
-
         return $this;
     }
 
@@ -59,7 +71,6 @@ class CommandeDetails
     public function setProducts(?Products $products): static
     {
         $this->products = $products;
-
         return $this;
     }
 }
