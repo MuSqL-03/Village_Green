@@ -136,6 +136,8 @@ class CartController extends AbstractController
 
     }
 
+    /// pour le paiement  stripe 
+
     #[Route('/checkout', name: 'checkout')]
     public function checkout(Security $security): Response
     {
@@ -223,7 +225,7 @@ class CartController extends AbstractController
     
         // ✅ Calculate total BEFORE persisting the order
         $total = 0;
-        $reduction = ($user->getNumeroSiret() !== null) ? 0.20 : 0.0;
+        $reduction = ($user->getNumeroSiret() !== null) ? 0.50 : 0.0;
     
         foreach ($panier as $id => $quantite) {
             $product = $productsRepository->find($id);
