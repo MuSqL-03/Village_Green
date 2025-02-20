@@ -1,34 +1,148 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Détails de {{ product.nom }}{% endblock %}
 
-{% block title %}Détails de {{ product.nom }} {% endblock %}
+{% block styles %}
+    <style>
+        /* Container for the product details */
+        .product-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #f4f4f4;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    {% block body %}
-        
- <main class="container">
-     <section class="row">
-        <div class="col-12">
-            <h1>{{ product.nom }}</h1>        
+        /* Styling the product details section */
+        .product-details {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 30px;
+            border-left: 4px solid #007bff; /* Left vertical border */
+            border-right: 4px solid #007bff; /* Right vertical border */
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        /* Product image styling */
+        .product-image {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover effect on image */
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Product text section */
+        .product-text {
+            padding: 30px;
+        }
+
+        .product-text h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+
+        .product-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        /* Add to Cart Button */
+        .btn-add-cart {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: #28a745;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-add-cart:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Out of stock message */
+        .out-of-stock {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .product-details {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .product-text {
+                padding: 20px 10px;
+            }
+
+            .product-container {
+                padding: 20px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<main class="container">
+    <section class="row justify-content-center">
+        <div class="col-12 text-center mb-4">
+            <h1 class="fw-bold text-primary">{{ product.nom }}</h1>
         </div>
-            <div class="col-6">
-                <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="image" style="width:45%">
-            </div>    
 
-        <div class="col-6">
-            <p> {{ product.description }} </p>
-            <p>Catégorie : {{ product.categories.nom}} </p>
-            <p>Prix : {{ product.prix / 100 }} € </p>
-            {% if product.stock > 0 %}
-                <a href=" {{ path('cart_add', {id: product.id}) }} " class="btn btn-success">Ajouter au panier</a>
-                
-            {% else %}
+        <div class="col-md-10 product-container">
+            <div class="product-details d-flex flex-md-row flex-column">
+                <!-- Product Image -->
+                <div class="col-md-6 text-center">
+                    <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}" class="product-image">
+                </div>
 
-                <p class="text-danger"> Temporairement en rupture de stock</p>
-                
-                
-            {% endif %}
+                <!-- Product Info -->
+                <div class="col-md-6 product-text">
+                    <h1>{{ product.nom }}</h1>
+                    <p>{{ product.description }}</p>
+                    <p><strong>Catégorie :</strong> {{ product.categories.nom }}</p>
+                    <p class="product-price">Prix : {{ product.prix / 100 }} €</p>
+
+                    {% if product.stock > 0 %}
+                        <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add-cart">🛒 Ajouter au panier</a>
+                    {% else %}
+                        <p class="out-of-stock">⚠️ Temporairement en rupture de stock</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-            
     </section>
 </main>
-    {% endblock %}    
+{% endblock %}

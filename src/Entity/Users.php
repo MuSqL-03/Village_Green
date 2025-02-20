@@ -56,9 +56,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?UserType $usertype = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
+   /*  #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Commercial $commercial = null;
-
+ */
     /**
      * @var Collection<int, Commande>
      */
@@ -234,7 +234,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCommercial(): ?Commercial
+/*     public function getCommercial(): ?Commercial
     {
         return $this->commercial;
     }
@@ -244,7 +244,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commercial = $commercial;
 
         return $this;
-    }
+    } */
 
     /**
      * @return Collection<int, Commande>

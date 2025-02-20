@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/users')]
@@ -23,17 +24,26 @@ class UsersController extends AbstractController
     }
 
     #[Route('/new', name: 'app_users_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new Users();
     
         // Check permission before processing the form
         $this->denyAccessUnlessGranted('user_add', $user);
     
-        $form = $this->createForm(UsersType::class, $user);
+        $form = $this->createForm(UsersType::class, $user, [
+            'user_role' => $this->getUser()->getRoles() // Pass logged-in user's roles
+        ]);
+
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+
+              // Hash the password
+              $plainPassword = $form->get('Password')->getData();
+              $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+
             $entityManager->persist($user);
             $entityManager->flush();
     
@@ -56,7 +66,7 @@ class UsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_users_edit', methods: ['GET', 'POST'])]
-public function edit(Request $request, Users $user, EntityManagerInterface $entityManager): Response
+public function edit(Request $request, Users $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
 {
     // Check permission before allowing edit
     $this->denyAccessUnlessGranted('user_edit', $user);
@@ -70,6 +80,10 @@ public function edit(Request $request, Users $user, EntityManagerInterface $enti
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+
+         // Hash the password
+         $plainPassword = $form->get('Password')->getData();
+         $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
         $entityManager->flush();
         return $this->redirectToRoute('app_users_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -45,24 +45,50 @@ class UsersVoter extends Voter
         }
 
         if ($this->security->isGranted('ROLE_CLIENT_PARTICULIER')) {
+
+            if (in_array($attribute, [self::ADD], true) && !$subject->getNumeroSiret())  {
+                $this->logger->info("Access granted: ROLE_CLIENT_PARTICULIER can {$attribute} a user without numeroSiret.");
+                return true;
+            }
+
+
             if (in_array($attribute, [ self::EDIT], true) && !$subject->getNumeroSiret()) {
                 $this->logger->info("Access granted: ROLE_CLIENT_PARTICULIER can {$attribute} a user without numeroSiret.");
                 return true;
             }
+
+
+            if (in_array($attribute, [self::DELETE], true) && !$subject->getNumeroSiret())  {
+                $this->logger->info("Access granted: ROLE_CLIENT_PARTICULIER can {$attribute} a user without numeroSiret.");
+                return true;
+            }
+
+            
+            
             $this->logger->warning("Access denied: ROLE_CLIENT_PARTICULIER tried to {$attribute} a user with numeroSiret.");
             return false;
         }
 
         if ($this->security->isGranted('ROLE_CLIENT_PROFESSIONEL')) {
-            if (in_array($attribute, [self::ADD, self::EDIT], true) && $subject->getNumeroSiret()) {
-                $this->logger->info("Access granted: ROLE_CLIENT_PROFESSIONEL can {$attribute} a user with numeroSiret.");
+            if ($attribute === self::ADD) {
+                $this->logger->info("Access granted: ROLE_CLIENT_PROFESSIONEL can add a new user.");
                 return true;
             }
+        
+            if ($attribute === self::EDIT && $subject->getNumeroSiret()) {
+                $this->logger->info("Access granted: ROLE_CLIENT_PROFESSIONEL can edit a user with numeroSiret.");
+                return true;
+            }
+
+            if ($attribute === self::DELETE && $subject->getNumeroSiret()) {
+
+                $this->logger->info("Access granted: ROLE_CLIENT_PROFESSIONNEL can delete a user with  numeroSiret");
+                return true;
+
+            }
+        
             $this->logger->warning("Access denied: ROLE_CLIENT_PROFESSIONEL tried to {$attribute} a user without numeroSiret.");
             return false;
         }
-
-        $this->logger->warning("Access denied: User {$user->getEmail()} does not have permission to {$attribute}.");
-        return false;
-    }
+    }        
 }

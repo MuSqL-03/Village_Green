@@ -1,51 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products index{% endblock %}
+{% block title %}Product List{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Product List</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Created_at</th>
-                <th>ReferenceFournisseur</th>
-                <th>Photo</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.nom }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.prix / 100 }}</td>
-                <td>{{ product.stock }}</td>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ product.referenceFournisseur }}</td>
-                <td><img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}" alt=" {{ product.nom }} "
-                    style="width:100%">
-               </td>
-                <td>{{ product.slug }}</td>
-                <td>
-                    <a href="{{ path('admin_products_app_produits_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('admin_products_app_produits_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price (€)</th>
+                    <th>Stock</th>
+                    <th>Created At</th>
+                    <th>Supplier Ref</th>
+                    <th>Photo</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.nom }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.prix / 100 }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                        <td>{{ product.referenceFournisseur }}</td>
+                        <td>
+                            <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}"
+                                class="img-fluid" style="max-width: 100px;">
+                        </td>
+                        <td>{{ product.slug }}</td>
+                        <td>
+                            <a href="{{ path('admin_products_app_produits_show', {'id': product.id}) }}" class="btn btn-info btn-sm">Show</a>
+                            <a href="{{ path('admin_products_app_produits_edit', {'id': product.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('admin_products_app_produits_new') }}">Create new</a>
+        <a href="{{ path('admin_products_app_produits_new') }}" class="btn btn-success">Create New Product</a>
+    </div>
 {% endblock %}

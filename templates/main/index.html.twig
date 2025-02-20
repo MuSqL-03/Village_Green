@@ -1,33 +1,118 @@
 {% extends 'base.html.twig' %}
 
+{% block styles %}
+    <style>
+        /* Page Background */
+        body {
+            background-color: #f7f7f3;
+        }
+
+        /* Section Background */ 
+        main {
+            background-color: #f7f7f3;
+
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Card Styling */
+        .card {
+            border-left: 4px solid #28a745;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Image Container */
+        .image-container {
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .category-image {
+            max-height: 100%;
+            width: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container:hover .category-image {
+            transform: scale(1.1);
+        }
+
+        /* Product Wrapper */
+        .product-wrapper {
+            position: relative;
+            border-left: 3px solid #28a745;
+            border-right: 3px solid #007bff;
+            border-bottom: 3px solid #ff5733;
+            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .product-wrapper:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .image-container {
+                height: 180px;
+            }
+        }
+    </style>
+{% endblock %}
+
+
 {% block body %}
 <main class="container mt-5">
-    <section class="row text-center">
-        
+    <section class="text-center">
+        <hr>
         <!-- Title Section -->
         <div class="col-12 mb-4">
             <h1 class="display-4 text-primary fw-bold">Bienvenue chez Village Green</h1>
             <p class="lead">Découvrez notre incroyable sélection de produits</p>
         </div>
+        <hr>
 
         <!-- Categories Section -->
-        {% for category in categories %}
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-lg border-0">
-                    <div class="image-container overflow-hidden d-flex justify-content-center align-items-center">
-                        <a href="{{ path('sous_categories', {id: category.id}) }}">
-                            <img class="card-img-top img-fluid category-image" 
-                                 src="{{ asset('uploads/categories/' ~ category.photo) }}" 
-                                 alt="{{ category.nom }}">
-                        </a>
+        <div class="container">
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-md-4 mb-3 product-wrapper">
+                        <div class="card shadow-lg border-0">
+                            <div class="image-container overflow-hidden d-flex justify-content-center align-items-center">
+                                <a href="{{ path('sous_categories', {id: category.id}) }}">
+                                    <img class="card-img-top img-fluid category-image" 
+                                         src="{{ asset('uploads/categories/' ~ category.photo) }}" 
+                                         alt="{{ category.nom }}">
+                                </a>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">{{ category.nom }}</h5>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold">{{ category.nom }}</h5>
-                    </div>
-                </div>
+
+                    {% if loop.index is divisible by(3) and not loop.last %}
+                        </div><div class="row"> <!-- Closes current row and starts a new one every 3 items -->
+                    {% endif %}
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     </section>
 </main>
-
 {% endblock %}
