@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivraisonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,8 +25,16 @@ class Livraison
     #[ORM\ManyToOne(inversedBy: 'livraisons')]
     private ?Commande $commande = null;
 
-    #[ORM\ManyToOne(inversedBy: 'livraisons')]
-    private ?LivraisonDetails $livraisonDetails = null;
+    /**
+     * @var Collection<int, LivraisonDetails>
+     */
+    #[ORM\OneToMany(mappedBy: 'livraison', targetEntity: LivraisonDetails::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $livraisonDetails;
+
+    public function __construct()
+    {
+        $this->livraisonDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -39,7 +49,6 @@ class Livraison
     public function setDateLivraison(\DateTimeInterface $dateLivraison): static
     {
         $this->dateLivraison = $dateLivraison;
-
         return $this;
     }
 
@@ -51,7 +60,6 @@ class Livraison
     public function setAdresseLivraison(string $adresseLivraison): static
     {
         $this->adresseLivraison = $adresseLivraison;
-
         return $this;
     }
 
@@ -63,19 +71,33 @@ class Livraison
     public function setCommande(?Commande $commande): static
     {
         $this->commande = $commande;
-
         return $this;
     }
 
-    public function getLivraisonDetails(): ?LivraisonDetails
+    /**
+     * @return Collection<int, LivraisonDetails>
+     */
+    public function getLivraisonDetails(): Collection
     {
         return $this->livraisonDetails;
     }
 
-    public function setLivraisonDetails(?LivraisonDetails $livraisonDetails): static
+    public function addLivraisonDetail(LivraisonDetails $livraisonDetail): static
     {
-        $this->livraisonDetails = $livraisonDetails;
+        if (!$this->livraisonDetails->contains($livraisonDetail)) {
+            $this->livraisonDetails->add($livraisonDetail);
+            $livraisonDetail->setLivraison($this);
+        }
+        return $this;
+    }
 
+    public function removeLivraisonDetail(LivraisonDetails $livraisonDetail): static
+    {
+        if ($this->livraisonDetails->removeElement($livraisonDetail)) {
+            if ($livraisonDetail->getLivraison() === $this) {
+                $livraisonDetail->setLivraison(null);
+            }
+        }
         return $this;
     }
 }

@@ -8,15 +8,21 @@ use Stripe\Checkout\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Commande;
 use App\Entity\CommandeDetails;
+use App\Entity\Livraison;
+use App\Entity\LivraisonDetails;
+use App\Entity\PaymentMethode as EntityPaymentMethode;
 use App\Entity\Products;
 use App\Entity\Users;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\PaymentMethode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -205,7 +211,7 @@ class CartController extends AbstractController
         SessionInterface $session, 
         ProductsRepository $productsRepository, 
         EntityManagerInterface $entityManager, 
-        Security $security
+        Security $security, MailerInterface $mailer
     ): Response {
         $user = $security->getUser();
     
@@ -242,7 +248,7 @@ class CartController extends AbstractController
         $commande = new Commande();
         $commande->setUsers($user);
         $commande->setReference(uniqid('CMD_'));
-        $commande->setEtat('En cours');
+        $commande->setEtat('Soldée');
         $commande->setCreatedAt(new \DateTimeImmutable());
         $commande->setDateFacture(new \DateTime());
         $commande->setAdresseFacture($user->getAdresse() ?? 'Adresse non spécifiée');
@@ -250,6 +256,7 @@ class CartController extends AbstractController
         $commande->setAdresseLivraison($user->getAdresse() ?? 'Adresse non spécifiée');
         $commande->setDatePayment(new \DateTime());
         $commande->setCoefficient(1.0);
+        $commande->setReduction($reduction);
         $commande->setTotal($total); // ✅ Set total before persisting
     
         $entityManager->persist($commande);
@@ -267,13 +274,60 @@ class CartController extends AbstractController
                 $commandeDetails->setProducts($product);
                 $commandeDetails->setQuantite($quantite);
                 $commandeDetails->setPrix($price); 
+
+                
     
                 $entityManager->persist($commandeDetails);
+
+                $livraison = new Livraison();
+                $livraison->setCommande($commande);
+                $livraison->setDateLivraison(new \DateTime('+3 days'));
+                $livraison->setAdresseLivraison($user->getAdresse() ?? 'Adresse non spécifiée');
+
+                $livraisonDetails = new LivraisonDetails();
+                $livraisonDetails->setProduct($product);
+                $livraisonDetails->setQuantite($quantite);
+                $livraisonDetails->setLivraison($livraison);
+
+                $livraison->addLivraisonDetail($livraisonDetails); // Ajoutez LivraisonDetails à Livraison (méthode à définir si nécessaire)
+
+                $entityManager->persist($livraison);
+                $entityManager->persist($livraisonDetails);
+
+                
+
+
+
             }
         }
+
+            // Persist Payment Method **after** processing order details
+              $paymentMethode = new EntityPaymentMethode();
+              $paymentMethode->setCommande($commande);
+              $paymentMethode->setNom("Stripe");
+              $entityManager->persist($paymentMethode);
+        
     
         // ✅ Now flush everything together
         $entityManager->flush();
+
+        // On envoie le mail
+        $email = (new Email())
+            ->from('no-replay@monsite.net')
+            ->to($user->getEmail())
+            ->subject('Votre Commande est bien Enregistere')
+            ->html($this->renderView('emails/commande_confirmation.html.twig', [
+                'user' => $user,
+                'commande' => $commande,
+                'livraison' => $livraison,
+                'livraisonDetails' => $livraisonDetails,
+                'paymentMethode' => $paymentMethode,
+                'panier' => $panier,
+            ]));
+
+
+          // On envoie le mail
+          $mailer->send($email);
     
         // ✅ Clear cart session after successful order creation
         $session->remove('panier');
