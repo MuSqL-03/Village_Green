@@ -28,12 +28,12 @@
     <h1>Détails des produits :</h1>
     <ul>
         {% for id, quantite in panier %}
-            <li>Produit Nom: {{ id }} - Quantité: {{ quantite }}</li>
+            <li>Produit ID: {{ id }} - Quantité: {{ quantite }}</li>
         {% endfor %}
     </ul>
 
     <h1>Total :</h1>
-    <p><strong>{{ commande.total / 100 }} €</strong></p>
+    <p><strong>{{ commande.total }} €</strong></p>
 
     <p>Votre commande est en cours de traitement. Vous recevrez un autre email lorsque votre commande sera expédiée.</p>
 
