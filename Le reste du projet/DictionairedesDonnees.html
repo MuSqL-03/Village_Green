@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionnaires des Données </title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>📋 Dictionnaire des Données  - Catégories</h1>
+    <h2>Structure des Données</h2>
+    <table>
+        <tr>
+            <th>Nom de l'Attribut</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>int</td>
+            <td>Identifiant unique de la catégorie (clé primaire).</td>
+        </tr>
+        <tr>
+            <td>nom</td>
+            <td>string(255)</td>
+            <td>Nom unique de la catégorie.</td>
+        </tr>
+        <tr>
+            <td>photo</td>
+            <td>string(255)</td>
+            <td>Chemin ou URL de l’image de la catégorie.</td>
+        </tr>
+        <tr>
+            <td>parent_id</td>
+            <td>int (nullable)</td>
+            <td>Référence à la catégorie parent.</td>
+        </tr>
+        <tr>
+            <td>categories</td>
+            <td>Collection</td>
+            <td>Liste des sous-catégories associées.</td>
+        </tr>
+        <tr>
+            <td>products</td>
+            <td>Collection</td>
+            <td>Liste des produits appartenant à cette catégorie.</td>
+        </tr>
+    </table>
+
+    <h2>Règles de Gestion</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Règle</th>
+        </tr>
+        <tr>
+            <td>RG01</td>
+            <td>Une catégorie doit avoir un nom unique.</td>
+        </tr>
+        <tr>
+            <td>RG02</td>
+            <td>Une catégorie peut être une sous-catégorie d'une autre catégorie.</td>
+        </tr>
+        <tr>
+            <td>RG03</td>
+            <td>Une catégorie peut contenir plusieurs sous-catégories.</td>
+        </tr>
+        <tr>
+            <td>RG04</td>
+            <td>Une catégorie peut contenir plusieurs produits, mais un produit appartient à une seule catégorie.</td>
+        </tr>
+        <tr>
+            <td>RG05</td>
+            <td>Lorsqu'une catégorie est supprimée, ses sous-catégories sont également supprimées (CASCADE).</td>
+        </tr>
+        <tr>
+            <td>RG06</td>
+            <td>Une catégorie doit obligatoirement avoir une image associée.</td>
+        </tr>
+    </table>
+
+    <h1>Dictionnaire de Données - Fournisseur</h1>
+    
+    <h2>Structure des Données</h2>
+    <table>
+        <tr>
+            <th>Nom de l'Attribut</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>int</td>
+            <td>Identifiant unique du fournisseur (clé primaire).</td>
+        </tr>
+        <tr>
+            <td>nom</td>
+            <td>string(255)</td>
+            <td>Nom unique du fournisseur.</td>
+        </tr>
+        <tr>
+            <td>adresse</td>
+            <td>string(255)</td>
+            <td>Adresse complète du fournisseur.</td>
+        </tr>
+        <tr>
+            <td>telephone</td>
+            <td>string(20)</td>
+            <td>Numéro de téléphone du fournisseur.</td>
+        </tr>
+        <tr>
+            <td>products</td>
+            <td>Collection</td>
+            <td>Liste des produits fournis par ce fournisseur.</td>
+        </tr>
+    </table>
+
+    <h2>Règles de Gestion</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Règle</th>
+        </tr>
+        <tr>
+            <td>RG01</td>
+            <td>Un fournisseur doit avoir un nom unique.</td>
+        </tr>
+        <tr>
+            <td>RG02</td>
+            <td>Un fournisseur doit avoir une adresse valide.</td>
+        </tr>
+        <tr>
+            <td>RG03</td>
+            <td>Un fournisseur doit avoir un numéro de téléphone valide (20 caractères max).</td>
+        </tr>
+        <tr>
+            <td>RG04</td>
+            <td>Un fournisseur peut fournir plusieurs produits.</td>
+        </tr>
+        <tr>
+            <td>RG05</td>
+            <td>Lorsqu'un fournisseur est supprimé, les produits liés ne doivent pas être supprimés mais désassociés.</td>
+        </tr>
+    </table>
+
+
+    <h1>Dictionnaire de Données - Produits</h1>
+    
+    <h2>Structure des Données</h2>
+    <table>
+        <tr>
+            <th>Nom de l'Attribut</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>int</td>
+            <td>Identifiant unique du produit (clé primaire).</td>
+        </tr>
+        <tr>
+            <td>nom</td>
+            <td>string(255)</td>
+            <td>Nom du produit.</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>text</td>
+            <td>Description détaillée du produit.</td>
+        </tr>
+        <tr>
+            <td>prix</td>
+            <td>int</td>
+            <td>Prix du produit en centimes.</td>
+        </tr>
+        <tr>
+            <td>stock</td>
+            <td>int</td>
+            <td>Quantité disponible en stock.</td>
+        </tr>
+        <tr>
+            <td>created_at</td>
+            <td>datetime</td>
+            <td>Date et heure de création du produit.</td>
+        </tr>
+        <tr>
+            <td>reference_fournisseur</td>
+            <td>string(100)</td>
+            <td>Référence fournisseur du produit.</td>
+        </tr>
+        <tr>
+            <td>photo</td>
+            <td>string(255)</td>
+            <td>URL de la photo du produit.</td>
+        </tr>
+        <tr>
+            <td>categories</td>
+            <td>relation</td>
+            <td>Catégorie du produit.</td>
+        </tr>
+        <tr>
+            <td>fournisseur</td>
+            <td>relation</td>
+            <td>Fournisseur du produit.</td>
+        </tr>
+    </table>
+
+    <h2>Règles de Gestion</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Règle</th>
+        </tr>
+        <tr>
+            <td>RG01</td>
+            <td>Un produit doit avoir un nom unique.</td>
+        </tr>
+        <tr>
+            <td>RG02</td>
+            <td>Le prix d'un produit doit être supérieur à zéro.</td>
+        </tr>
+        <tr>
+            <td>RG03</td>
+            <td>Le stock d'un produit ne peut pas être négatif.</td>
+        </tr>
+        <tr>
+            <td>RG04</td>
+            <td>Un produit appartient à une seule catégorie.</td>
+        </tr>
+        <tr>
+            <td>RG05</td>
+            <td>Un produit peut être lié à un seul fournisseur.</td>
+        </tr>
+        <tr>
+            <td>RG06</td>
+            <td>Lorsqu'un produit est supprimé, ses commandes et livraisons doivent être conservées mais désassociées.</td>
+        </tr>
+    </table>
+
+
+    <h2>📋 Dictionnaire des Données - Users</h2>
+
+    <table>
+        <tr>
+            <th>Nom du champ</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Contraintes</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>Integer</td>
+            <td>Identifiant unique de l'utilisateur</td>
+            <td>Auto-incrémenté, clé primaire</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>String (180)</td>
+            <td>Adresse email de l'utilisateur</td>
+            <td>Unique, obligatoire</td>
+        </tr>
+        <tr>
+            <td>roles</td>
+            <td>Array</td>
+            <td>Rôles attribués à l'utilisateur</td>
+            <td>Valeur par défaut : ROLE_USER</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td>String</td>
+            <td>Mot de passe hashé</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>nom</td>
+            <td>String (255)</td>
+            <td>Nom de l'utilisateur</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>prenom</td>
+            <td>String (255)</td>
+            <td>Prénom de l'utilisateur</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>adresse</td>
+            <td>String (255)</td>
+            <td>Adresse postale</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>codepostal</td>
+            <td>String (10)</td>
+            <td>Code postal</td>
+            <td>Format numérique</td>
+        </tr>
+        <tr>
+            <td>ville</td>
+            <td>String (150)</td>
+            <td>Ville</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>created_at</td>
+            <td>DateTimeImmutable</td>
+            <td>Date de création du compte</td>
+            <td>Valeur par défaut : CURRENT_TIMESTAMP</td>
+        </tr>
+        <tr>
+            <td>usertype</td>
+            <td>Relation</td>
+            <td>Type d'utilisateur</td>
+            <td>Peut être null</td>
+        </tr>
+        <tr>
+            <td>numeroSiret</td>
+            <td>Integer</td>
+            <td>Numéro SIRET (entreprise)</td>
+            <td>Peut être null</td>
+        </tr>
+    </table>
+
+    <h2>⚙️ Règles de gestion</h2>
+    <ul>
+        <li>📧 Un utilisateur ne peut pas avoir la même adresse email qu’un autre (contrainte d’unicité).</li>
+        <li>🔑 Le mot de passe est stocké de manière hashée pour assurer la sécurité.</li>
+        <li>📜 L’utilisateur doit obligatoirement avoir au moins le rôle <strong>ROLE_USER</strong>.</li>
+        <li>🏢 Le champ <strong>numeroSiret</strong> est optionnel et concerne uniquement les comptes professionnels.</li>
+        <li>📌 Lorsqu’un utilisateur est supprimé, ses commandes ne doivent pas être supprimées automatiquement.</li>
+    </ul>
+
+
+    <h2>📋 Dictionnaire des Données - Commande</h2>
+
+    <table>
+        <tr>
+            <th>Nom du champ</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Contraintes</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>Integer</td>
+            <td>Identifiant unique de la commande</td>
+            <td>Auto-incrémenté, clé primaire</td>
+        </tr>
+        <tr>
+            <td>reference</td>
+            <td>String (50)</td>
+            <td>Référence unique de la commande</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>created_at</td>
+            <td>DateTimeImmutable</td>
+            <td>Date de création de la commande</td>
+            <td>Valeur par défaut : CURRENT_TIMESTAMP</td>
+        </tr>
+        <tr>
+            <td>reduction</td>
+            <td>Float</td>
+            <td>Réduction appliquée sur la commande</td>
+            <td>Valeur par défaut : 0.0</td>
+        </tr>
+        <tr>
+            <td>etat</td>
+            <td>String (255)</td>
+            <td>Statut actuel de la commande</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>dateFacture</td>
+            <td>Date</td>
+            <td>Date d’émission de la facture</td>
+            <td>Peut être null</td>
+        </tr>
+        <tr>
+            <td>adresseFacture</td>
+            <td>String (255)</td>
+            <td>Adresse de facturation</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>dateLivraison</td>
+            <td>Date</td>
+            <td>Date prévue pour la livraison</td>
+            <td>Peut être null</td>
+        </tr>
+        <tr>
+            <td>adresseLivraison</td>
+            <td>String (255)</td>
+            <td>Adresse de livraison</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>users</td>
+            <td>Relation</td>
+            <td>Utilisateur ayant passé la commande</td>
+            <td>Relation ManyToOne avec `Users`</td>
+        </tr>
+        <tr>
+            <td>coefficient</td>
+            <td>Float</td>
+            <td>Coefficient de marge appliqué à la commande</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>total</td>
+            <td>Decimal (10,2)</td>
+            <td>Montant total de la commande</td>
+            <td>Obligatoire</td>
+        </tr>
+        <tr>
+            <td>datePayment</td>
+            <td>DateTime</td>
+            <td>Date du paiement</td>
+            <td>Peut être null</td>
+        </tr>
+    </table>
+
+    <h2>⚙️ Règles de gestion</h2>
+    <ul>
+        <li>📌 Une commande doit toujours être associée à un utilisateur.</li>
+        <li>💰 Le champ <strong>reduction</strong> ne peut pas être négatif.</li>
+        <li>📅 Une commande ne peut être facturée que si elle est en statut <strong>"Validée"</strong> ou supérieur.</li>
+        <li>📍 L’adresse de livraison et l’adresse de facturation doivent être renseignées obligatoirement.</li>
+        <li>📦 Une commande ne peut être livrée que si son paiement est validé.</li>
+        <li>📜 Le total doit être calculé automatiquement en fonction des produits et de la réduction.</li>
+    </ul>
+
+
+</body>
+</html>

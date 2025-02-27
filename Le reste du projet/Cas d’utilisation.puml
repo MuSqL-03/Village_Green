@@ -1,0 +1,81 @@
+@startuml
+
+left to right direction 
+
+actor Administrateur
+actor AdminProduits
+actor AdministrateurClientParticulier
+actor AdministrateurClientProfessionnel
+actor Client
+actor "Système de paiement" as Paiement
+
+rectangle "VillageGreen - Gestion des Commandes" {
+
+  (S'inscrire / Se connecter) as UC1
+  (Consulter le Catalogue) as UC16
+  (Ajouter des produits au panier) as UC2
+  (Modifier les quantités des produits) as UC3
+  (Valider le panier) as UC4
+  (Saisir les adresses de livraison et facturation) as UC5
+  (Choisir un mode de paiement) as UC6
+  (Effectuer le paiement) as UC7
+  (Confirmer la commande) as UC8
+  (Suivi de la livraison) as UC10
+  (Annuler une commande) as UC17
+  (Consulter l'historique des commandes) as UC18
+  (Modifier son compte) as UC19
+  
+  (Gérer les commandes) as UC9
+  (Appliquer des réductions) as UC11
+  (Gérer les remboursements) as UC20
+  (Gérer les stocks) as UC21
+  (Ajouter/Modifier/Supprimer un produit dans la base de données) as UC12
+  (Gérer les catégories) as UC13
+  (Ajouter/Modifier/Supprimer un Client Particulier) as UC14
+  (Ajouter/Modifier/Supprimer un Client Professionnel) as UC15
+  (Consulter de Tableau de bord) as UC22
+
+  Administrateur --> UC9
+  Administrateur --> UC10
+  Administrateur --> UC11 
+  Administrateur --> UC12
+  Administrateur --> UC13
+  Administrateur --> UC14
+  Administrateur --> UC15
+  Administrateur --> UC20
+  Administrateur --> UC21
+  Administrateur --> UC22
+
+
+  AdminProduits --> UC12
+  AdminProduits --> UC13 
+  AdminProduits --> UC22
+
+
+  AdministrateurClientParticulier --> UC14 
+  AdministrateurClientParticulier --> UC22
+
+  AdministrateurClientProfessionnel --> UC15
+  AdministrateurClientProfessionnel --> UC22
+
+
+  Client --> UC1
+  Client --> UC2
+  Client --> UC3
+  Client --> UC4
+  Client --> UC5
+  Client --> UC6
+  Client --> UC7
+  Client --> UC8
+  Client --> UC10
+  Client --> UC16
+  Client --> UC17
+  Client --> UC18
+  Client --> UC19
+
+  UC7 ..> Paiement : "Validation ou échec du paiement"
+  UC7 ..> UC8 : "Paiement validé"
+  UC8 ..> Administrateur : "Commande reçue"
+}
+
+@enduml

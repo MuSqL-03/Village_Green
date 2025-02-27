@@ -1,0 +1,50 @@
+@startuml
+
+autonumber 
+actor Client 
+participant "VillageGreen" as Web
+participant "Base de données" as DB
+participant "Systéme de Paiement" as Paiement
+participant "Administeur" as Admin
+
+
+Client -> Web: Se connecter / Créer un compte
+Web -> DB: Vérifier les indentifiants
+DB -> Web: Validation / Échec connextion 
+Web -> Client: Connexion réussie / Massage d'erreur
+
+Client -> Web: Ajouter un  produits au panier
+Web -> DB: Vérifier disponsibilité produit
+DB -> Web: Confirmation disponsibilité
+Web -> Client: Produit ajouté au panier
+
+Client -> Web: Modifier quantité produit 
+Web -> Client: Mettre à jour le panier
+DB -> Web: Confirmation mise à jour
+
+Client -> Web: Valider le panier
+Web -> Client: Afficher résumé panier
+
+Client -> Web: Saisir adresse livraison et facturation
+Web -> DB: Engregistrer les adresse 
+DB -> Web: Confirmation enregistrement
+
+Client -> Web: Choisir mode de paiement
+Client -> Web: Confirmer le paiement
+Web -> Paiement: Envoyer demande de paiement
+Paiement -> Web: Réponse paiement(Succès/Échec)
+Web -> Client: Confirmation paiement / Erreur paiement
+
+alt Paiement accepté 
+    Web -> DB: Créer une nouvelle commande
+    DB -> Web: Commande engregistrée
+    Web -> Admin: Notifier nouvelle commande
+    Admin -> Web: Traiter commande at préparer livraison 
+    Web -> Client: Confirmer commande et envoyer récapitulatif
+end
+
+alt Paiement refusé 
+    Web -> Client: Afficher message d'erreur et proposer autre mode de paiement
+end
+ 
+@enduml
