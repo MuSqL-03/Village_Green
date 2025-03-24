@@ -1,8 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
+    {% block styles %}
+
+<style>
+/* Background Animation */
+@keyframes backgroundAnimation {
+0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
+25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
+50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
+75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
+100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }  /* Sunset Glow */
+}
+
+body {
+animation: backgroundAnimation 10s infinite alternate ease-in-out;
+
+}
+</style>
+{% endblock %}
+
 
 {% block body %}
+    
 <section class="container">
     <div class="row">
         <div class="col">
@@ -63,5 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
     usertypeField.addEventListener('change', toggleNumeroSiret);
 });
 </script>
+
 
 {% endblock %}
