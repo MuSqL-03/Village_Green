@@ -1,11 +1,14 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg py-3 fixed-top">
     <div class="container">
         <!-- Brand Name -->
-        <a class="navbar-brand fw-bold text-primary" href="{{ path('main') }}">🛍️ Village Green</a>
+        <a class="navbar-brand fw-bold text-gradient" href="{{ path('main') }}">
+            🛍️ Village Green
+        </a>
 
         <!-- Navbar Toggler for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -13,50 +16,102 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('main') }}">Home</a>
+                    <a class="nav-link active" href="{{ path('main') }}">🏠 Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('main') }}">Categories</a>
+                    <a class="nav-link" href="{{ path('main') }}">📂 Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('products_index') }}">Products</a>
+                    <a class="nav-link" href="{{ path('products_index') }}">🛍️ Products</a>
                 </li>
             </ul>
 
             <!-- User Links -->
-            <ul class="navbar-nav ms-auto">
-             
+            <ul class="navbar-nav ms-auto align-items-center">
                 {% if app.user %}
-                    {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT_PARTICULIER') or is_granted('ROLE_CLIENT_PROFESSIONEL') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
-                        </li>
-                    {% endif %}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('main') }}">Mon Compte</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Me déconnecter</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light fw-bold" href="#" id="userDropdown" 
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            👤 Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a class="dropdown-item text-warning" href="{{ path('admin_index') }}">⚙️ Admin</a></li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="{{ path('main') }}">👤 Profile</a></li>
+                            <li><a class="dropdown-item text-danger logout-btn" href="{{ path('app_logout') }}">🚪 Logout</a></li>
+                        </ul>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">M'inscrire</a>
+                        <a class="nav-link text-success fw-bold" href="{{ path('app_register') }}">📝 Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Me connecter</a>
+                        <a class="nav-link text-info fw-bold" href="{{ path('app_login') }}">🔑 Login</a>
                     </li>
                 {% endif %}
+                
+                <!-- Cart Link -->
+                <li class="nav-item ms-3">
+                    <a class="nav-link fw-bold cart-link" href="{{ path('cart_index') }}">🛒 Panier</a>
+                </li>
             </ul>
         </div>
-        
-
     </div>
-    <ul>
-    <li class="nav-item">
-        <a class="nav-link" style="color: aqua; text-decoration: none;" href="{{ path('cart_index') }}">🛒 Panier</a>
-    </li>
-</ul>
-
-    
 </nav>
+
+<style>
+    /* Gradient Text Effect */
+    .text-gradient {
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #ffdde1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.7rem;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+        background: linear-gradient(45deg, rgba(0,0,0,0.95), rgba(20,20,20,0.9));
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Navbar Links */
+    .nav-link {
+        transition: all 0.3s ease-in-out;
+        font-size: 1.1rem;
+        color: white !important;
+    }
+
+    .nav-link:hover {
+        transform: scale(1.1);
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Cart Link Glow Effect */
+    .cart-link {
+        color: aqua !important;
+        text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.7);
+        font-size: 1.3rem;
+    }
+
+    /* Logout Button Animation */
+    .logout-btn {
+        position: relative;
+    }
+
+    .logout-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0%;
+        height: 2px;
+        background-color: red;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .logout-btn:hover::after {
+        width: 100%;
+        left: 0;
+    }
+</style>

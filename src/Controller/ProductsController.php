@@ -5,6 +5,7 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Repository\CommandeDetailsRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,6 +58,20 @@ class ProductsController extends AbstractController
             'products' => $products,
         ]);
     }
+
+    // TOP 10 des produits les plus commandés pour une année sélectionnée (référence et nom du produit, quantité commandée, fournisseur)
+
+  /*   #[Route('/top-products/{year}', name: 'top_products', requirements: ['year' => '\d{4}'])]
+    public function topProducts(int $year, CommandeDetailsRepository $commandeDetailsRepository): Response
+     {
+      $topProducts = $commandeDetailsRepository->findTop10ProductsByYear($year);
+
+      return $this->render('products/top_products.html.twig', [
+        'topProducts' => $topProducts,
+        'year' => $year
+      ]);
+     } */
+
 }
 
 

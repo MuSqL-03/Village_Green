@@ -1,0 +1,19 @@
+GET https://127.0.0.1:8000/api/categories
+Accept: application/json
+
+
+###
+
+POST https://127.0.0.1:8000/api/categories
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nom": "Nouvelle Catégorie",
+  "photo": "nouveau.jpg"
+}
+###
+
+
+GET https://127.0.0.1:8000/api/products
+Accept: application/json

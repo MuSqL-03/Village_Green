@@ -4,6 +4,20 @@
 
 {% block styles %}
     <style>
+
+              /* Background Animation */
+              @keyframes backgroundAnimation {
+            0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }
+            25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }
+            50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }
+            75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }
+            100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }
+        }
+
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+            font-family: 'Arial', sans-serif;
+        }
         .product-container {
             display: flex;
             flex-wrap: wrap;
@@ -86,7 +100,7 @@
                     <div class="product-card">
                         <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}" class="img-fluid">
                         <h3>{{ product.nom }}</h3>
-                        <p>{{ product.prix / 100 }} €</p>
+                        <p>💰{{ product.prix / 100 }} €</p>
                         <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add-cart">Ajouter au panier</a>
                     </div>
                 </div>

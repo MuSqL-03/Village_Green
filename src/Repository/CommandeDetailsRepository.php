@@ -15,29 +15,26 @@ class CommandeDetailsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CommandeDetails::class);
     }
-
-    //    /**
-    //     * @return CommandeDetails[] Returns an array of CommandeDetails objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?CommandeDetails
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+  /*   public function findTop10ProductsByYear(int $year): array
+    {
+        return $this->createQueryBuilder('cd')
+            ->select('p.referenceFournisseur AS reference, p.nom AS product_name, SUM(cd.quantite) AS total_quantity, f.nom AS fournisseur')
+            ->join('cd.products', 'p')
+            ->join('p.fournisseur', 'f')
+            ->join('cd.commande', 'c')
+            ->where("c.dateFacture BETWEEN :start_date AND :end_date")
+            ->setParameter('start_date', new \DateTime("$year-01-01"))
+            ->setParameter('end_date', new \DateTime("$year-12-31"))
+            ->groupBy('p.id, f.id')
+            ->orderBy('total_quantity', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    } */
+    
+    
+    
+    
+    
 }
+

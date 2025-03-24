@@ -23,15 +23,79 @@
 
     <!-- Hero Section -->
     <section class="hero-section position-relative text-center">
-        <img src="{{ asset('uploads/bg.jpg') }}" alt="Background Image" class="img-fluid w-100" style="height: 400px;">
+        <img src="{{ asset('uploads/image1.jpg') }}" alt="Background Image" class="img-fluid w-100" style="height: 400px;">
         
-        <!-- Search Bar Inside Image -->
-        <div class="position-absolute top-50 start-50 translate-middle" style="width: 40%;">
-            <form method="get" action="{{ path('products_search') }}">
-                <input class="form-control" type="search" name="search" placeholder="Search for products..." aria-label="Search">
-            </form>
-        </div>
+       <!-- Search Bar Inside Image -->
+<div class="position-absolute top-50 start-50 translate-middle search-container">
+    <form method="get" action="{{ path('products_search') }}" class="search-form d-flex align-items-center">
+        <input class="form-control search-input" type="search" name="search" placeholder="🔍 Search for products..." aria-label="Search">
+        <button class="btn search-btn" type="submit">
+            <i class="fas fa-search">Search</i>
+        </button>
+    </form>
+</div>
+
+
+
+
     </section>
+
+
+<style>
+    /* Search Bar Container */
+    .search-container {
+        width: 50%;
+        max-width: 500px;
+    }
+
+    /* Search Form Styling */
+    .search-form {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 30px;
+        padding: 5px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Input Styling */
+    .search-input {
+        border: none;
+        border-radius: 30px;
+        padding: 12px 20px;
+        outline: none;
+        width: 100%;
+        font-size: 1rem;
+        background: transparent;
+    }
+
+    .search-input:focus {
+        box-shadow: none;
+    }
+
+    /* Search Button */
+    .search-btn {
+        background: linear-gradient(45deg, #ff7eb3, #ff758c);
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .search-btn:hover {
+        background: linear-gradient(45deg, #ff4e8b, #ff5f9e);
+        transform: scale(1.1);
+    }
+
+    .search-btn i {
+        font-size: 1.2rem;
+    }
+</style>
+    <!-- FontAwesome Icons -->
+<script src="https://kit.fontawesome.com/yourkitcode.js" crossorigin="anonymous"></script>
     {% include "_partials/_flash.html.twig" %}
 
 

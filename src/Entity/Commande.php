@@ -3,20 +3,26 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
+#[ApiResource(  normalizationContext: ['groups' => ['read:commande']]  )]
+
 class Commande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:commande'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['read:commande'])]
     private ?string $reference = null;
 
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
@@ -26,39 +32,50 @@ class Commande
     private float $reduction = 0.0;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:commande'])]
     private ?string $etat = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['read:commande'])]
     private ?\DateTimeInterface $dateFacture = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:commande'])]
     private ?string $adresseFacture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['read:commande'])]
     private ?\DateTimeInterface $dateLivraison = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:commande'])]
     private ?string $adresseLivraison = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[Groups(['read:commande'])]
     private ?Users $users = null;
 
     #[ORM\Column]
     private ?float $coefficient = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['read:commande'])]
     private ?string $total = null;
 
     #[ORM\OneToMany(targetEntity: CommandeDetails::class, mappedBy: 'commande')]
+    #[Groups(['read:commande'])]
     private Collection $commandeDetails;
 
     #[ORM\OneToMany(targetEntity: PaymentMethode::class, mappedBy: 'commande')]
+    #[Groups(['read:commande'])]
     private Collection $paymentMethodes;
 
     #[ORM\OneToMany(targetEntity: Livraison::class, mappedBy: 'commande')]
+    #[Groups(['read:commande'])]
     private Collection $livraisons;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['read:commande'])]
     private ?\DateTimeInterface $datePayment = null;
 
     public function __construct()

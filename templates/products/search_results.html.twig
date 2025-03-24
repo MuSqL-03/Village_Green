@@ -1,26 +1,116 @@
 {# templates/products/search_results.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h2>Search Results</h2>
-    {% if products is empty %}
-        <p>No products found matching your search.</p>
-    {% else %}
-        <ul>
-            {% for product in products %}
-                <li>
-                    <a href="{{ path('products_details', {'slug': product.slug}) }}">
-                        {{ product.nom }}
-                    </a>
-                    <div class="col-12">
-                        <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="image" style="width:15%">
-                        <p> - {{ product.description }}</p>
-                        <p> - {{ product.prix}}</p>
-                    </div>
-                    
+{% block styles %}
+    <style>
 
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+             /* Background Animation */
+             @keyframes backgroundAnimation {
+        0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
+        25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
+        50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
+        75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
+        100% { background: linear-gradient(45deg, #ED7845, #ffebd2); } 
+         /* Sunset Glow */
+    }
+
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+        }
+        /* Page Styling */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Product List */
+        .product-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 280px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Product Image */
+        .product-card img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Product Title */
+        .product-card a {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .product-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Price Styling */
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #dc3545;
+            padding: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        <div class="search-container">
+            <h2>🔍 Résultats de la Recherche</h2>
+        </div>
+
+        {% if products is empty %}
+            <p class="no-results">Aucun produit ne correspond à votre recherche. 😞</p>
+        {% else %}
+            <ul class="product-list">
+                {% for product in products %}
+                    <li class="product-card">
+                        <a href="{{ path('products_details', {'slug': product.slug}) }}">
+                            {{ product.nom }}
+                        </a>
+                        <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}">
+                        <p>{{ product.description }}</p>
+                        <p class="product-price">💰 {{ product.prix / 100 }} €</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock %}

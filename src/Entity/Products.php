@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
+#[ApiResource(  normalizationContext: ['groups' => ['read:product']]  )]
 class Products
 {
 
@@ -19,31 +22,39 @@ class Products
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:product', 'read:category'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:product', 'read:category'])]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['read:product'])]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups(['read:product'])]
     private ?int $prix = null;
 
     #[ORM\Column]
+    #[Groups(['read:product'])]
     private ?int $stock = null;
 
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['read:product'])]
     private ?string $referenceFournisseur = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:product'])]
     private ?string $photo = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read:product'])]
     private ?Categories $categories = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]

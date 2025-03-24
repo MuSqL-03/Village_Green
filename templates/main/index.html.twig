@@ -2,25 +2,41 @@
 
 {% block styles %}
     <style>
-        /* Page Background */
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+        0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
+        25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
+        50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
+        75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
+        100% { background: linear-gradient(45deg, #ED7845, #ffebd2); } 
+         /* Sunset Glow */
+    }
+
         body {
-            background-color: #f7f7f3;
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
         }
 
-        /* Section Background */ 
+        /* Section Background */
         main {
-            background-color: #f7f7f3;
-
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Category Section Background Animation */
+        .animated-section {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.5s ease-in-out;
         }
 
         /* Card Styling */
         .card {
             border-left: 4px solid #28a745;
             border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 3s ease;
             overflow: hidden;
             background: #fff;
         }
@@ -28,6 +44,7 @@
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background-color: #f8f9fa;
         }
 
         /* Image Container */
@@ -60,11 +77,13 @@
             background-color: #ffffff;
             padding: 15px;
             margin-bottom: 20px;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out, background-color 3s ease;
         }
 
         .product-wrapper:hover {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f1f1f1;
+            transform: scale(1.05);
         }
 
         /* Responsive Adjustments */
@@ -76,9 +95,7 @@
     </style>
 {% endblock %}
 
-
 {% block body %}
-<main class="container mt-5">
     <section class="text-center">
         <hr>
         <!-- Title Section -->
@@ -90,29 +107,30 @@
 
         <!-- Categories Section -->
         <div class="container">
-            <div class="row">
+            <div class="row animated-section">
                 {% for category in categories %}
-                    <div class="col-md-4 mb-3 product-wrapper">
-                        <div class="card shadow-lg border-0">
-                            <div class="image-container overflow-hidden d-flex justify-content-center align-items-center">
-                                <a href="{{ path('sous_categories', {id: category.id}) }}">
-                                    <img class="card-img-top img-fluid category-image" 
-                                         src="{{ asset('uploads/categories/' ~ category.photo) }}" 
-                                         alt="{{ category.nom }}">
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold">{{ category.nom }}</h5>
+                    <div class="col-md-4 mb-3">
+                        <div class="product-wrapper">
+                            <div class="card shadow-lg border-0">
+                                <div class="image-container overflow-hidden d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('sous_categories', {id: category.id}) }}">
+                                        <img class="card-img-top img-fluid category-image" 
+                                             src="{{ asset('uploads/categories/' ~ category.photo) }}" 
+                                             alt="{{ category.nom }}">
+                                    </a>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title fw-bold">{{ category.nom }}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     {% if loop.index is divisible by(3) and not loop.last %}
-                        </div><div class="row"> <!-- Closes current row and starts a new one every 3 items -->
+                        </div><div class="row animated-section"> <!-- Closes current row and starts a new one every 3 items -->
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
     </section>
-</main>
 {% endblock %}

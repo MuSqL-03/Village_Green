@@ -4,58 +4,73 @@
 
 {% block styles %}
     <style>
-        /* Container for the product details */
-        .product-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            background: #f4f4f4;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+            0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }
+            25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }
+            50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }
+            75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }
+            100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }
         }
 
-        /* Styling the product details section */
-        .product-details {
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Product Section */
+        .product-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .product-container {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            padding: 30px;
-            border-left: 4px solid #007bff; /* Left vertical border */
-            border-right: 4px solid #007bff; /* Right vertical border */
+            justify-content: space-between;
+            max-width: 1100px;
+            background: #fff;
             border-radius: 12px;
-            background-color: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Product image styling */
+        /* Product Image */
+        .product-image-container {
+            flex: 1;
+            text-align: center;
+        }
+
         .product-image {
             width: 100%;
-            max-width: 350px;
+            max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease-in-out;
         }
 
-        /* Hover effect on image */
         .product-image:hover {
             transform: scale(1.05);
         }
 
-        /* Product text section */
-        .product-text {
-            padding: 30px;
+        /* Product Info */
+        .product-info {
+            flex: 1;
+            padding: 20px;
         }
 
-        .product-text h1 {
+        .product-info h1 {
             font-size: 2rem;
             font-weight: bold;
             color: #343a40;
             margin-bottom: 15px;
         }
 
-        .product-text p {
+        .product-info p {
             font-size: 1.1rem;
             color: #555;
             margin-bottom: 10px;
@@ -68,7 +83,7 @@
             margin-bottom: 20px;
         }
 
-        /* Add to Cart Button */
+        /* Buttons */
         .btn-add-cart {
             display: inline-block;
             padding: 12px 24px;
@@ -86,7 +101,6 @@
             transform: scale(1.05);
         }
 
-        /* Out of stock message */
         .out-of-stock {
             font-size: 1.2rem;
             font-weight: bold;
@@ -94,55 +108,43 @@
             margin-top: 20px;
         }
 
-        /* Responsive adjustments */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .product-details {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 20px;
-            }
-
-            .product-text {
-                padding: 20px 10px;
-            }
-
             .product-container {
-                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-info {
+                padding: 20px 10px;
             }
         }
     </style>
 {% endblock %}
 
 {% block body %}
-<main class="container">
-    <section class="row justify-content-center">
-        <div class="col-12 text-center mb-4">
-            <h1 class="fw-bold text-primary">{{ product.nom }}</h1>
-        </div>
+    <section class="product-section">
+        <h1 class="text-primary fw-bold text-center">{{ product.nom }}</h1>
 
-        <div class="col-md-10 product-container">
-            <div class="product-details d-flex flex-md-row flex-column">
-                <!-- Product Image -->
-                <div class="col-md-6 text-center">
-                    <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}" class="product-image">
-                </div>
+        <div class="product-container">
+            <!-- Product Image -->
+            <div class="product-image-container">
+                <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}" class="product-image">
+            </div>
 
-                <!-- Product Info -->
-                <div class="col-md-6 product-text">
-                    <h1>{{ product.nom }}</h1>
-                    <p>{{ product.description }}</p>
-                    <p><strong>Catégorie :</strong> {{ product.categories.nom }}</p>
-                    <p class="product-price">Prix : {{ product.prix / 100 }} €</p>
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1>{{ product.nom }}</h1>
+                <p>{{ product.description }}</p>
+                <p><strong>Catégorie :</strong> {{ product.categories.nom }}</p>
+                <p class="product-price">Prix : 💰 {{ product.prix / 100 }} €</p>
 
-                    {% if product.stock > 0 %}
-                        <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add-cart">🛒 Ajouter au panier</a>
-                    {% else %}
-                        <p class="out-of-stock">⚠️ Temporairement en rupture de stock</p>
-                    {% endif %}
-                </div>
+                {% if product.stock > 0 %}
+                    <a href="{{ path('cart_add', {id: product.id}) }}" class="btn-add-cart">🛒 Ajouter au panier</a>
+                {% else %}
+                    <p class="out-of-stock">⚠️ Temporairement en rupture de stock</p>
+                {% endif %}
             </div>
         </div>
     </section>
-</main>
 {% endblock %}

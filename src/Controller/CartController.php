@@ -180,21 +180,28 @@ class CartController extends AbstractController
     
         Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
         $lineItems = [];
+
+         // ✅ Apply discount for users with a SIRET number
+         $reduction = ($user->getNumeroSiret() !== null) ? 0.50 : 0.0;
     
         foreach ($panier as $id => $quantite) {
             $product = $productsRepository->find($id);
             if ($product) {
-                $lineItems[] = [
+                // 💲 Apply discount if eligible
+            $prixReduit = $product->getPrix() * (1 - $reduction);
+
+            $lineItems[] = [
                     'price_data' => [
                         'currency' => 'eur',
                         'product_data' => ['name' => $product->getNom()],
-                        'unit_amount' => $product->getPrix(), // ✅ Convert to cents
+                        'unit_amount' => intval($prixReduit), // Ensure it's in cents
                     ],
                     'quantity' => $quantite,
                 ];
             }
         }
-    
+        
+        // ✅ Create Stripe checkout session
         $checkoutSession = Session::create([
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,

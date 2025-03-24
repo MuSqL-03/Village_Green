@@ -1,19 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    List des produits de la catégories {{ category.nom }}
-    
+    Liste des produits de la catégorie {{ category.nom }}
 {% endblock %}
+
 {% block styles %}
     <style>
-        .container {
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+            0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Dark Gray & Warm Pink */
+            25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Blue & Soft Blush */
+            50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Red & Lavender */
+            75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Hot Pink & Pastel Pink */
+            100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }  /* Orange & Soft Peach */
+        }
+
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+        }
+
+        .category-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
 
-        .card {
+        .category-card {
             background: #fff;
             padding: 20px;
             border-radius: 12px;
@@ -23,90 +36,57 @@
             text-align: center;
         }
 
-        .card:hover {
+        .category-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
-      /*   .product-card img {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            margin-bottom: 15px;
-        } */
-
-        .card h3 {
+        .category-card h3 {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
-        .card p {
+        .category-card p {
             font-size: 1rem;
             color: #555;
             margin-bottom: 15px;
         }
 
-        .btn-add-cart {
-            display: inline-block;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #fff;
-            background: #28a745;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-
-        .btn-add-cart:hover {
-            background: #218838;
-        }
         .product-wrapper {
-    position: relative;
-    border-left: 2px solid #28a745;  /* Green left vertical line */
-    border-right: 2px solid #007bff; /* Blue right vertical line */
-    border-bottom: 2px solid #ff5733; /* Orange bottom line */
-    padding: 10px; /* Ensure spacing inside */
-    margin-bottom: 15px; /* Space between rows */
-    border-radius: 12px; /* Optional: Keep the rounded effect */
-    background-color: #f8f9fa; /* Light gray background */
-}
-
-
+            position: relative;
+            border-left: 2px solid #28a745;  /* Green left vertical line */
+            border-right: 2px solid #007bff; /* Blue right vertical line */
+            border-bottom: 2px solid #ff5733; /* Orange bottom line */
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
-<main class="container">
-    <section class="row">
-        <div class="col-12">
+    <section class="row text-center">
             <hr>
-            <h1>List des produits de la catégories {{ category.nom }} </h1>
+            <h1>Liste des produits de la catégorie {{ category.nom }} </h1>
             <hr>
-        </div>
+        <div class="category-container">
         {% for product in products %}
-    <div class="col-3 mb-3 product-wrapper">
-        <article class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">{{ product.nom }}</h2>
-                <a href="{{ path('products_details', {'slug': product.slug }) }}">
-                    <img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}" 
-                         alt="{{ category.nom }}" style="width:100%">
-                </a>
-               <!--  <a href="{{ path('products_details', {'slug': product.slug }) }}" class="btn btn-primary">
-                    Voir les détails
-                </a> -->
+            <div class="category-card product-wrapper">
+                        <div class="image-container overflow-hidden">
+                        <a href="{{ path('products_details', {'slug': product.slug }) }}">
+                            <img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}" 
+                                 alt="{{ category.nom }}" style="width:100%">
+                        </a>
+                        <div class="card-body text-center">
+                            <h2 class="card-title">{{ product.nom }}</h2>
+                        </div>    
+
+
+                    </div>
             </div>
-            <p class="card-text"> {{ product.description }} </p>
-
-        </article>
-    </div>
-{% endfor %}
-
+        {% endfor %}
+        </div>
     </section>
-</main>
-
 {% endblock %}
