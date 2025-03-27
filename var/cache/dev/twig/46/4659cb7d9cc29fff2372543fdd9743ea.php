@@ -102,16 +102,76 @@ class __TwigTemplate_744e2bd024dceb8b839d97d3abe8d82b extends Template
 <style>
 /* Background Animation */
 @keyframes backgroundAnimation {
-0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
-25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
-50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
-75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
-100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }  /* Sunset Glow */
+    0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  
+    25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  
+    50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  
+    75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  
+    100% { background: linear-gradient(45deg, #ED7845, #ffebd2, #FFB48F); }  
 }
 
 body {
-animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    font-family: 'Arial', sans-serif;
 
+}
+
+
+
+/* Container Styling */
+.registration-container {
+    max-width: 1000px; 
+    height: 950px;
+    background:whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Image Styling */
+.registration-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Form Styling */
+.form-container {
+    padding: 0;
+    max-width: 450px;
+    margin: auto;
+}
+
+.form-container h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.form-container fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.form-container legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #273DB4;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1F2F8C;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
 }
 </style>
 ";
@@ -124,7 +184,7 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
         yield from [];
     }
 
-    // line 24
+    // line 84
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -137,76 +197,88 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 25
+        // line 85
         yield "    
-<section class=\"container\">
-    <div class=\"row\">
-        <div class=\"col\">
-            <h1>Inscription</h1>
+    <section class=\"container d-flex justify-content-center align-items-center\">    
+        <div class=\"row  py-5 h-100\">
+        <div class=\"row registration-container py-2 h-100\"> 
+                    <!-- Left side image -->
+        <div class=\"col-md-6 d-none d-md-block p-0\">
+            <img src=\"";
+        // line 91
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("uploads/image7.jpg"), "html", null, true);
+        yield "\" alt=\"Inscription Image\" class=\"registration-image\">
+        </div>
+                <!-- Right side form -->  
+                 
+            <div class=\"col-md-6 d-flex align-items-center\">
+               <div class=\"form-container w-100\">
+                 <h1 class=\"text-center mb-3\">Inscription</h1>
 
             ";
-        // line 31
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 31, $this->source); })()), 'form_start');
+        // line 99
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 99, $this->source); })()), 'form_start');
         yield "
-                <fieldset class=\"mb-3\">
+                <fieldset>
                     <legend>Mon Identité</legend>
                     ";
-        // line 34
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 34, $this->source); })()), "nom", [], "any", false, false, false, 34), 'row');
+        // line 102
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 102, $this->source); })()), "nom", [], "any", false, false, false, 102), 'row');
         yield "
                     ";
-        // line 35
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 35, $this->source); })()), "prenom", [], "any", false, false, false, 35), 'row');
+        // line 103
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 103, $this->source); })()), "prenom", [], "any", false, false, false, 103), 'row');
         yield "
                     ";
-        // line 36
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 36, $this->source); })()), "email", [], "any", false, false, false, 36), 'row');
+        // line 104
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 104, $this->source); })()), "email", [], "any", false, false, false, 104), 'row');
         yield "
                 </fieldset>
                 
-                <fieldset class=\"mb-3\">
+                <fieldset>
                     <legend>Mes Coordonnées</legend>
                     ";
-        // line 41
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 41, $this->source); })()), "adresse", [], "any", false, false, false, 41), 'row');
+        // line 109
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 109, $this->source); })()), "adresse", [], "any", false, false, false, 109), 'row');
         yield "
                     ";
-        // line 42
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 42, $this->source); })()), "codepostal", [], "any", false, false, false, 42), 'row');
+        // line 110
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 110, $this->source); })()), "codepostal", [], "any", false, false, false, 110), 'row');
         yield "
                     ";
-        // line 43
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 43, $this->source); })()), "ville", [], "any", false, false, false, 43), 'row');
+        // line 111
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 111, $this->source); })()), "ville", [], "any", false, false, false, 111), 'row');
         yield "
                     ";
-        // line 44
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 44, $this->source); })()), "usertype", [], "any", false, false, false, 44), 'row');
+        // line 112
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 112, $this->source); })()), "usertype", [], "any", false, false, false, 112), 'row');
         yield "
                      <!--Numero SIRET (hidden unless user is \"professionnel\") -->
                 <div id=\"numeroSiretField\" style=\"display: none;\">
                     ";
-        // line 47
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 47, $this->source); })()), "numeroSiret", [], "any", false, false, false, 47), 'row');
+        // line 115
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 115, $this->source); })()), "numeroSiret", [], "any", false, false, false, 115), 'row');
         yield "
                 </div>
                 </fieldset>    
 
                 ";
-        // line 51
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 51, $this->source); })()), "password", [], "any", false, false, false, 51), 'row');
+        // line 119
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 119, $this->source); })()), "password", [], "any", false, false, false, 119), 'row');
         yield "
 
                
 
-                <button type=\"submit\" class=\"btn btn-primary\">S'inscrire</button>
-
-                <a href=\"";
-        // line 57
+                <div class=\"d-grid gap-2\">
+                        <button type=\"submit\" class=\"btn btn-primary\">S'inscrire</button>
+                        <a href=\"";
+        // line 125
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
-        yield "\" class=\"btn btn-secondary\">Me connecter</a>
+        yield "\" class=\"btn btn-outline-secondary\">Me connecter</a>
+                </div>
                 ";
-        // line 58
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 58, $this->source); })()), 'form_end');
+        // line 127
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 127, $this->source); })()), 'form_end');
         yield "
         </div>
     </div>
@@ -268,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
      */
     public function getDebugInfo(): array
     {
-        return array (  209 => 58,  205 => 57,  196 => 51,  189 => 47,  183 => 44,  179 => 43,  175 => 42,  171 => 41,  163 => 36,  159 => 35,  155 => 34,  149 => 31,  141 => 25,  128 => 24,  101 => 5,  88 => 4,  65 => 3,  42 => 1,);
+        return array (  281 => 127,  276 => 125,  267 => 119,  260 => 115,  254 => 112,  250 => 111,  246 => 110,  242 => 109,  234 => 104,  230 => 103,  226 => 102,  220 => 99,  209 => 91,  201 => 85,  188 => 84,  101 => 5,  88 => 4,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -281,16 +353,76 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
 /* Background Animation */
 @keyframes backgroundAnimation {
-0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
-25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
-50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
-75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
-100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }  /* Sunset Glow */
+    0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  
+    25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  
+    50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  
+    75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  
+    100% { background: linear-gradient(45deg, #ED7845, #ffebd2, #FFB48F); }  
 }
 
 body {
-animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    font-family: 'Arial', sans-serif;
 
+}
+
+
+
+/* Container Styling */
+.registration-container {
+    max-width: 1000px; 
+    height: 950px;
+    background:whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Image Styling */
+.registration-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Form Styling */
+.form-container {
+    padding: 0;
+    max-width: 450px;
+    margin: auto;
+}
+
+.form-container h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.form-container fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.form-container legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #273DB4;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1F2F8C;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
 }
 </style>
 {% endblock %}
@@ -298,20 +430,28 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
 
 {% block body %}
     
-<section class=\"container\">
-    <div class=\"row\">
-        <div class=\"col\">
-            <h1>Inscription</h1>
+    <section class=\"container d-flex justify-content-center align-items-center\">    
+        <div class=\"row  py-5 h-100\">
+        <div class=\"row registration-container py-2 h-100\"> 
+                    <!-- Left side image -->
+        <div class=\"col-md-6 d-none d-md-block p-0\">
+            <img src=\"{{ asset('uploads/image7.jpg') }}\" alt=\"Inscription Image\" class=\"registration-image\">
+        </div>
+                <!-- Right side form -->  
+                 
+            <div class=\"col-md-6 d-flex align-items-center\">
+               <div class=\"form-container w-100\">
+                 <h1 class=\"text-center mb-3\">Inscription</h1>
 
             {{ form_start(registrationForm) }}
-                <fieldset class=\"mb-3\">
+                <fieldset>
                     <legend>Mon Identité</legend>
                     {{ form_row(registrationForm.nom) }}
                     {{ form_row(registrationForm.prenom) }}
                     {{ form_row(registrationForm.email) }}
                 </fieldset>
                 
-                <fieldset class=\"mb-3\">
+                <fieldset>
                     <legend>Mes Coordonnées</legend>
                     {{ form_row(registrationForm.adresse) }}
                     {{ form_row(registrationForm.codepostal) }}
@@ -327,9 +467,10 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
 
                
 
-                <button type=\"submit\" class=\"btn btn-primary\">S'inscrire</button>
-
-                <a href=\"{{ path('app_login') }}\" class=\"btn btn-secondary\">Me connecter</a>
+                <div class=\"d-grid gap-2\">
+                        <button type=\"submit\" class=\"btn btn-primary\">S'inscrire</button>
+                        <a href=\"{{ path('app_login') }}\" class=\"btn btn-outline-secondary\">Me connecter</a>
+                </div>
                 {{ form_end(registrationForm) }}
         </div>
     </div>

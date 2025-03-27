@@ -107,7 +107,7 @@ class __TwigTemplate_71595d2fcabd186022bafc901bd2a36f extends Template
     <a href=\"";
         // line 10
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_users_index");
-        yield "\">back to list</a>
+        yield "\">Retour</a>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -153,7 +153,7 @@ class __TwigTemplate_71595d2fcabd186022bafc901bd2a36f extends Template
 
     {{ include('admin/users/_form.html.twig') }}
 
-    <a href=\"{{ path('app_users_index') }}\">back to list</a>
+    <a href=\"{{ path('app_users_index') }}\">Retour</a>
 {% endblock %}
 ", "admin/users/new.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/users/new.html.twig");
     }

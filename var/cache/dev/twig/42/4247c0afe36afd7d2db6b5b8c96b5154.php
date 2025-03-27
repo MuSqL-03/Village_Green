@@ -99,9 +99,7 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
 
         // line 6
         yield "    <style>
-
-
-              /* Background Animation */
+        /* Background Animation */
               @keyframes backgroundAnimation {
             0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }
             25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }
@@ -179,7 +177,7 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
         yield from [];
     }
 
-    // line 79
+    // line 77
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -192,7 +190,7 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 80
+        // line 78
         yield "    <div class=\"container\">
         <div class=\"checkout-container\">
             <h1 class=\"text-center text-primary\">🛒 Finaliser la commande</h1>
@@ -210,19 +208,19 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
                 </div>
 
                 ";
-        // line 96
-        if (( !(null === (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 96, $this->source); })())) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 96, $this->source); })()), "numeroSiret", [], "any", false, false, false, 96)))) {
-            // line 97
+        // line 94
+        if (( !(null === (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 94, $this->source); })())) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 94, $this->source); })()), "numeroSiret", [], "any", false, false, false, 94)))) {
+            // line 95
             yield "                    <div class=\"mb-3\">
                         <label for=\"numero_siret\" class=\"form-label\">🏢 Numéro SIRET</label>
                         <input type=\"text\" id=\"numero_siret\" name=\"numero_siret\" class=\"form-control\" value=\"";
-            // line 99
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 99, $this->source); })()), "numeroSiret", [], "any", false, false, false, 99), "html", null, true);
+            // line 97
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 97, $this->source); })()), "numeroSiret", [], "any", false, false, false, 97), "html", null, true);
             yield "\" readonly>
                     </div>
                 ";
         }
-        // line 102
+        // line 100
         yield "
                 <button type=\"button\" id=\"checkout-button\" class=\"btn-checkout\">💳 Payer avec Stripe</button>
             </form>
@@ -234,15 +232,15 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
     <script>
         document.getElementById(\"checkout-button\").addEventListener(\"click\", function () {
             fetch(\"";
-        // line 112
+        // line 110
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("cart_stripe_checkout");
         yield "\", { method: \"POST\" }) 
                 .then(response => response.json())
                 .then(session => {
                     if (session.id) {
                         var stripe = Stripe(\"";
-        // line 116
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["stripePublicKey"]) || array_key_exists("stripePublicKey", $context) ? $context["stripePublicKey"] : (function () { throw new RuntimeError('Variable "stripePublicKey" does not exist.', 116, $this->source); })()), "html", null, true);
+        // line 114
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["stripePublicKey"]) || array_key_exists("stripePublicKey", $context) ? $context["stripePublicKey"] : (function () { throw new RuntimeError('Variable "stripePublicKey" does not exist.', 114, $this->source); })()), "html", null, true);
         yield "\"); // ✅ Ensure stripePublicKey is correctly passed from the controller
                         stripe.redirectToCheckout({ sessionId: session.id });
                     } else {
@@ -286,7 +284,7 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  245 => 116,  238 => 112,  226 => 102,  220 => 99,  216 => 97,  214 => 96,  196 => 80,  183 => 79,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  243 => 114,  236 => 110,  224 => 100,  218 => 97,  214 => 95,  212 => 94,  194 => 78,  181 => 77,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -297,9 +295,7 @@ class __TwigTemplate_0208a8c096e9ddd278427bc6f791980b extends Template
 
 {% block styles %}
     <style>
-
-
-              /* Background Animation */
+        /* Background Animation */
               @keyframes backgroundAnimation {
             0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }
             25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }

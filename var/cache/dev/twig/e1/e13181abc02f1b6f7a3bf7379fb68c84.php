@@ -31,6 +31,7 @@ class __TwigTemplate_3314cca29006fe26156b54fc6ed31121 extends Template
 
         $this->blocks = [
             'title' => [$this, 'block_title'],
+            'styles' => [$this, 'block_styles'],
             'body' => [$this, 'block_body'],
         ];
     }
@@ -73,7 +74,7 @@ class __TwigTemplate_3314cca29006fe26156b54fc6ed31121 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Edit Users";
+        yield "Edit User";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -87,6 +88,67 @@ class __TwigTemplate_3314cca29006fe26156b54fc6ed31121 extends Template
     /**
      * @return iterable<null|scalar|\Stringable>
      */
+    public function block_styles(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "styles"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "styles"));
+
+        // line 6
+        yield "    <style>
+        .edit-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .btn-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .btn-update {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+    </style>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 45
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
     public function block_body(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
@@ -96,23 +158,30 @@ class __TwigTemplate_3314cca29006fe26156b54fc6ed31121 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 6
-        yield "    <h1>Edit Users</h1>
+        // line 46
+        yield "<div class=\"container edit-container\">
+    <h1 class=\"text-primary fw-bold text-center mb-4\">Modifier les Utilisateurs</h1>
 
     ";
-        // line 8
+        // line 49
         yield Twig\Extension\CoreExtension::include($this->env, $context, "admin/users/_form.html.twig", ["button_label" => "Update"]);
         yield "
 
-    <a href=\"";
-        // line 10
+    <div class=\"text-center mt-4\">
+        <a href=\"";
+        // line 52
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_users_index");
-        yield "\">back to list</a>
-
-    ";
-        // line 12
+        yield "\" class=\"btn btn-custom btn-back\">
+            <i class=\"fas fa-arrow-left\">Retour</i> 
+        </a>
+        ";
+        // line 55
         yield Twig\Extension\CoreExtension::include($this->env, $context, "admin/users/_delete_form.html.twig");
         yield "
+    </div>
+</div>
+
+<script src=\"https://kit.fontawesome.com/your-fontawesome-kit.js\" crossorigin=\"anonymous\"></script>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -144,24 +213,70 @@ class __TwigTemplate_3314cca29006fe26156b54fc6ed31121 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  114 => 12,  109 => 10,  104 => 8,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  179 => 55,  173 => 52,  167 => 49,  162 => 46,  149 => 45,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Edit Users{% endblock %}
+{% block title %}Edit User{% endblock %}
+
+{% block styles %}
+    <style>
+        .edit-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .btn-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .btn-update {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Users</h1>
+<div class=\"container edit-container\">
+    <h1 class=\"text-primary fw-bold text-center mb-4\">Modifier les Utilisateurs</h1>
 
     {{ include('admin/users/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href=\"{{ path('app_users_index') }}\">back to list</a>
+    <div class=\"text-center mt-4\">
+        <a href=\"{{ path('app_users_index') }}\" class=\"btn btn-custom btn-back\">
+            <i class=\"fas fa-arrow-left\">Retour</i> 
+        </a>
+        {{ include('admin/users/_delete_form.html.twig') }}
+    </div>
+</div>
 
-    {{ include('admin/users/_delete_form.html.twig') }}
-{% endblock %}
-", "admin/users/edit.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/users/edit.html.twig");
+<script src=\"https://kit.fontawesome.com/your-fontawesome-kit.js\" crossorigin=\"anonymous\"></script>
+{% endblock %}", "admin/users/edit.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/users/edit.html.twig");
     }
 }

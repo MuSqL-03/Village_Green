@@ -205,7 +205,7 @@ class __TwigTemplate_2961b42808b788879cf60a69902602c9 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Mon Site";
+        yield " 🛍️ Village_Green";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -290,7 +290,7 @@ class __TwigTemplate_2961b42808b788879cf60a69902602c9 extends Template
 <head>
     <meta charset=\"UTF-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>{% block title %}Mon Site{% endblock %}</title>
+    <title>{% block title %} 🛍️ Village_Green{% endblock %}</title>
 
     {# Bootstrap CSS #}
     <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\">

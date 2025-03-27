@@ -47,12 +47,15 @@ class __TwigTemplate_38747dd2f0fb8b87cf63cd98f05b0ba3 extends Template
         // line 1
         yield "<form method=\"post\" action=\"";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_app_produits_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["product"]) || array_key_exists("product", $context) ? $context["product"] : (function () { throw new RuntimeError('Variable "product" does not exist.', 1, $this->source); })()), "id", [], "any", false, false, false, 1)]), "html", null, true);
-        yield "\" onsubmit=\"return confirm('Are you sure you want to delete this item?');\">
+        yield "\" 
+      onsubmit=\"return confirm('Are you sure you want to delete this item?');\">
     <input type=\"hidden\" name=\"_token\" value=\"";
-        // line 2
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["product"]) || array_key_exists("product", $context) ? $context["product"] : (function () { throw new RuntimeError('Variable "product" does not exist.', 2, $this->source); })()), "id", [], "any", false, false, false, 2))), "html", null, true);
+        // line 3
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["product"]) || array_key_exists("product", $context) ? $context["product"] : (function () { throw new RuntimeError('Variable "product" does not exist.', 3, $this->source); })()), "id", [], "any", false, false, false, 3))), "html", null, true);
         yield "\">
-    <button class=\"btn\">Delete</button>
+    <button class=\"btn btn-danger btn-lg\">
+        <i class=\"bi bi-trash\">Supprimer</i> 
+    </button>
 </form>
 ";
         
@@ -85,14 +88,17 @@ class __TwigTemplate_38747dd2f0fb8b87cf63cd98f05b0ba3 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  53 => 2,  48 => 1,);
+        return array (  54 => 3,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("<form method=\"post\" action=\"{{ path('admin_products_app_produits_delete', {'id': product.id}) }}\" onsubmit=\"return confirm('Are you sure you want to delete this item?');\">
+        return new Source("<form method=\"post\" action=\"{{ path('admin_products_app_produits_delete', {'id': product.id}) }}\" 
+      onsubmit=\"return confirm('Are you sure you want to delete this item?');\">
     <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ product.id) }}\">
-    <button class=\"btn\">Delete</button>
+    <button class=\"btn btn-danger btn-lg\">
+        <i class=\"bi bi-trash\">Supprimer</i> 
+    </button>
 </form>
 ", "admin/produits/_delete_form.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/produits/_delete_form.html.twig");
     }

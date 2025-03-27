@@ -6,16 +6,76 @@
 <style>
 /* Background Animation */
 @keyframes backgroundAnimation {
-0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
-25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
-50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
-75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
-100% { background: linear-gradient(45deg, #ED7845, #ffebd2); }  /* Sunset Glow */
+    0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  
+    25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  
+    50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  
+    75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  
+    100% { background: linear-gradient(45deg, #ED7845, #ffebd2, #FFB48F); }  
 }
 
 body {
-animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    animation: backgroundAnimation 10s infinite alternate ease-in-out;
+    font-family: 'Arial', sans-serif;
 
+}
+
+
+
+/* Container Styling */
+.registration-container {
+    max-width: 1000px; 
+    height: 950px;
+    background:whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Image Styling */
+.registration-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Form Styling */
+.form-container {
+    padding: 0;
+    max-width: 450px;
+    margin: auto;
+}
+
+.form-container h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.form-container fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.form-container legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #273DB4;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1F2F8C;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
 }
 </style>
 {% endblock %}
@@ -23,20 +83,28 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
 
 {% block body %}
     
-<section class="container">
-    <div class="row">
-        <div class="col">
-            <h1>Inscription</h1>
+    <section class="container d-flex justify-content-center align-items-center">    
+        <div class="row  py-5 h-100">
+        <div class="row registration-container py-2 h-100"> 
+                    <!-- Left side image -->
+        <div class="col-md-6 d-none d-md-block p-0">
+            <img src="{{ asset('uploads/image7.jpg') }}" alt="Inscription Image" class="registration-image">
+        </div>
+                <!-- Right side form -->  
+                 
+            <div class="col-md-6 d-flex align-items-center">
+               <div class="form-container w-100">
+                 <h1 class="text-center mb-3">Inscription</h1>
 
             {{ form_start(registrationForm) }}
-                <fieldset class="mb-3">
+                <fieldset>
                     <legend>Mon Identité</legend>
                     {{ form_row(registrationForm.nom) }}
                     {{ form_row(registrationForm.prenom) }}
                     {{ form_row(registrationForm.email) }}
                 </fieldset>
                 
-                <fieldset class="mb-3">
+                <fieldset>
                     <legend>Mes Coordonnées</legend>
                     {{ form_row(registrationForm.adresse) }}
                     {{ form_row(registrationForm.codepostal) }}
@@ -52,9 +120,10 @@ animation: backgroundAnimation 10s infinite alternate ease-in-out;
 
                
 
-                <button type="submit" class="btn btn-primary">S'inscrire</button>
-
-                <a href="{{ path('app_login') }}" class="btn btn-secondary">Me connecter</a>
+                <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-secondary">Me connecter</a>
+                </div>
                 {{ form_end(registrationForm) }}
         </div>
     </div>

@@ -1,55 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products{% endblock %}
+{% block title %}Product Details{% endblock %}
 
 {% block body %}
-    <h1>Products</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-primary text-center fw-bold">Product Details</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ product.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ product.prix }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ product.stock }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ReferenceFournisseur</th>
-                <td>{{ product.referenceFournisseur }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td><img class="card-img-top" src="{{ asset('uploads/Products/' ~ product.photo) }}"  style="width:30%">
-            </td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ product.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card shadow-lg p-4 mb-5 bg-white rounded">
+            <div class="card-body">
+                <table class="table table-hover table-bordered align-middle text-center">
+                    <tbody>
+                        <tr>
+                            <th class="bg-light">ID</th>
+                            <td class="fw-bold">{{ product.id }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Nom</th>
+                            <td class="text-primary fw-semibold">{{ product.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Description</th>
+                            <td class="text-muted">{{ product.description }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Prix (€)</th>
+                            <td class="text-success fw-bold">{{ product.prix / 100 }} €</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Stock</th>
+                            <td class="fw-bold {{ product.stock > 0 ? 'text-success' : 'text-danger' }}">{{ product.stock }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Created At</th>
+                            <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Reference Fournisseur</th>
+                            <td>{{ product.referenceFournisseur }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Photo</th>
+                            <td>
+                                <img src="{{ asset('uploads/Products/' ~ product.photo) }}" alt="{{ product.nom }}" class="img-thumbnail rounded shadow" style="max-width: 150px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light">Slug</th>
+                            <td>{{ product.slug }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <a href="{{ path('admin_products_index') }}">back to list</a>
-
-    <a href="{{ path('admin_products_app_produits_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('admin/produits/_delete_form.html.twig') }}
+        <div class="text-center mt-4">
+            <a href="{{ path('admin_products_index') }}" class="btn btn-secondary btn-lg me-2">
+                <i class="bi bi-arrow-left">Retour </i> 
+            </a>
+            <a href="{{ path('admin_products_app_produits_edit', {'id': product.id}) }}" class="btn btn-warning btn-lg me-2">
+                <i class="bi bi-pencil">Modifier</i> 
+            </a>
+            {{ include('admin/produits/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

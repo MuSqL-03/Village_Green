@@ -35,10 +35,9 @@
                             👤 Account
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li><a class="dropdown-item text-warning" href="{{ path('admin_index') }}">⚙️ Admin</a></li>
+                            {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT_PARTICULIER') or is_granted('ROLE_CLIENT_PROFESSIONEL') %}                                <li><a class="dropdown-item text-warning" href="{{ path('admin_index') }}">⚙️ Admin</a></li>
                             {% endif %}
-                            <li><a class="dropdown-item" href="{{ path('main') }}">👤 Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ path('profile_index') }}">👤 Profile</a></li>
                             <li><a class="dropdown-item text-danger logout-btn" href="{{ path('app_logout') }}">🚪 Logout</a></li>
                         </ul>
                     </li>

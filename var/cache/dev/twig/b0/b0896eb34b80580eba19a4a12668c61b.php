@@ -73,7 +73,7 @@ class __TwigTemplate_5ffad5a9b575219b1676505dc0077135 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Edit Products";
+        yield "Edit Product";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -97,22 +97,31 @@ class __TwigTemplate_5ffad5a9b575219b1676505dc0077135 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        yield "    <h1>Edit Products</h1>
+        yield "    <div class=\"container mt-5\">
+        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifie les produits</h1>
 
-    ";
-        // line 8
-        yield Twig\Extension\CoreExtension::include($this->env, $context, "admin/produits/_form.html.twig", ["button_label" => "Modifier"]);
+        <div class=\"card shadow-lg p-4 mb-5 bg-white rounded\">
+            <div class=\"card-body\">
+                ";
+        // line 11
+        yield Twig\Extension\CoreExtension::include($this->env, $context, "admin/produits/_form.html.twig", ["button_label" => "Mise à jour"]);
         yield "
+            </div>
+        </div>
 
-    <a href=\"";
-        // line 10
+        <div class=\"text-center mt-4\">
+            <a href=\"";
+        // line 16
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_index");
-        yield "\">back to list</a>
-
-    ";
-        // line 12
+        yield "\" class=\"btn btn-secondary btn-lg me-2\">
+                <i class=\"bi bi-arrow-left\">Retour</i> 
+            </a>
+            ";
+        // line 19
         yield Twig\Extension\CoreExtension::include($this->env, $context, "admin/produits/_delete_form.html.twig");
         yield "
+        </div>
+    </div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -144,23 +153,32 @@ class __TwigTemplate_5ffad5a9b575219b1676505dc0077135 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  114 => 12,  109 => 10,  104 => 8,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  121 => 19,  115 => 16,  107 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Edit Products{% endblock %}
+{% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Products</h1>
+    <div class=\"container mt-5\">
+        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifie les produits</h1>
 
-    {{ include('admin/produits/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <div class=\"card shadow-lg p-4 mb-5 bg-white rounded\">
+            <div class=\"card-body\">
+                {{ include('admin/produits/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+            </div>
+        </div>
 
-    <a href=\"{{ path('admin_products_index') }}\">back to list</a>
-
-    {{ include('admin/produits/_delete_form.html.twig') }}
+        <div class=\"text-center mt-4\">
+            <a href=\"{{ path('admin_products_index') }}\" class=\"btn btn-secondary btn-lg me-2\">
+                <i class=\"bi bi-arrow-left\">Retour</i> 
+            </a>
+            {{ include('admin/produits/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
 ", "admin/produits/edit.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/produits/edit.html.twig");
     }

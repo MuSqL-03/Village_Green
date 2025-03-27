@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Products{% endblock %}
+{% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Products</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-primary text-center fw-bold">Modifier les produits</h1>
 
-    {{ include('admin/produits/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <div class="card shadow-lg p-4 mb-5 bg-white rounded">
+            <div class="card-body">
+                {{ include('admin/produits/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+            </div>
+        </div>
 
-    <a href="{{ path('admin_products_index') }}">back to list</a>
-
-    {{ include('admin/produits/_delete_form.html.twig') }}
+        <div class="text-center mt-4">
+            <a href="{{ path('admin_products_index') }}" class="btn btn-secondary btn-lg me-2">
+                <i class="bi bi-arrow-left">Retour</i> 
+            </a>
+            {{ include('admin/produits/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

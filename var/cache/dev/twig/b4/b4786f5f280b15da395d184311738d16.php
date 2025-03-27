@@ -30,6 +30,7 @@ class __TwigTemplate_bbc063aff9c9c8c3b8cf827e2b4fa276 extends Template
         $this->source = $this->getSourceContext();
 
         $this->blocks = [
+            'styles' => [$this, 'block_styles'],
             'title' => [$this, 'block_title'],
             'body' => [$this, 'block_body'],
         ];
@@ -60,7 +61,46 @@ class __TwigTemplate_bbc063aff9c9c8c3b8cf827e2b4fa276 extends Template
 
     }
 
-    // line 3
+    // line 2
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_styles(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "styles"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "styles"));
+
+        // line 3
+        yield "    <style>
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+        0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
+        25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
+        50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
+        75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
+        100% { background: linear-gradient(45deg, #ED7845, #ffebd2); } 
+         /* Sunset Glow */
+    }
+
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+        }
+    </style>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 20
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -83,7 +123,7 @@ class __TwigTemplate_bbc063aff9c9c8c3b8cf827e2b4fa276 extends Template
         yield from [];
     }
 
-    // line 5
+    // line 22
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -96,134 +136,75 @@ class __TwigTemplate_bbc063aff9c9c8c3b8cf827e2b4fa276 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 6
-        yield "    <aside class=\"custom-sidebar\">
-    <h2 class=\"admin-title\">Administration</h2> <!-- Titre ajouté ici -->
+        // line 23
+        yield "    <aside class=\"container py-4\">
+        <hr>
+        <h2 class=\"text-center  fw-bold mb-4\">Administration</h2>
+        <hr>
 
-    <div class=\"card-container\">
-        ";
-        // line 10
+        <div class=\"row justify-content-center\">
+            ";
+        // line 29
         if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COMMERCIAL"))) {
-            // line 11
-            yield "            <article class=\"card\">
-                <div class=\"card-header\">
-                    Catégories
-                </div>
-                <div class=\"card-body\">
-                    <p><a href=\"";
-            // line 16
+            // line 30
+            yield "                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Catégories
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"";
+            // line 36
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_categories_index");
-            yield "\">Liste des catégories</a></p>
-                    <p><a href=\"\">Ajouter une catégorie</a></p>
+            yield "\" class=\"btn btn-outline-primary w-100\">Liste des catégories</a></p>
+                            <p><a href=\"#\" class=\"btn btn-outline-success w-100\">Ajouter une catégorie</a></p>
+                        </div>
+                    </div>
                 </div>
-            </article>
-            <article class=\"card\">
-                <div class=\"card-header\">
-                    Produits
-                </div>
-                <div class=\"card-body\">
-                    <p><a href=\"";
-            // line 25
+                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Produits
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"";
+            // line 47
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_index");
-            yield "\">Liste des produits</a></p>
-                    <p><a href=\"";
-            // line 26
+            yield "\" class=\"btn btn-outline-primary w-100\">Liste des produits</a></p>
+                            <p><a href=\"";
+            // line 48
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_app_produits_new");
-            yield "\">Ajouter un produit</a></p>
+            yield "\" class=\"btn btn-outline-success w-100\">Ajouter un produit</a></p>
+                        </div>
+                    </div>
                 </div>
-            </article>
-        ";
+            ";
         }
-        // line 30
+        // line 53
         yield "
-        ";
-        // line 31
+            ";
+        // line 54
         if ((($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_CLIENT_PARTICULIER")) || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_CLIENT_PROFESSIONEL"))) {
-            // line 32
-            yield "            <article class=\"card\">
-                <div class=\"card-header\">
-                    Utilisateurs
-                </div>
-                <div class=\"card-body\">
-                    <p><a href=\"";
-            // line 37
+            // line 55
+            yield "                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Utilisateurs
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"";
+            // line 61
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_users_index");
-            yield "\">Liste des utilisateurs</a></p>
+            yield "\" class=\"btn btn-outline-primary w-100\">Liste des utilisateurs</a></p>
+                        </div>
+                    </div>
                 </div>
-            </article>
-        ";
+            ";
         }
-        // line 41
-        yield "    </div>
-</aside>
-
-<style>
-    /* Conteneur principal */
-    .custom-sidebar {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Centrer le contenu */
-    }
-
-    /* Titre Administration */
-    .admin-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 15px;
-    }
-
-    /* Container des cartes */
-    .card-container {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    /* Style des cartes */
-    .card {
-        width: 250px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* Style des en-têtes */
-    .card-header {
-        background-color: #007bff;
-        color: white;
-        font-weight: bold;
-        padding: 10px;
-    }
-
-    /* Contenu de la carte */
-    .card-body {
-        padding: 10px;
-        flex-grow: 1;
-    }
-
-    /* Style des liens */
-    .card-body a {
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-        transition: color 0.3s ease-in-out;
-    }
-
-    /* Effet au survol */
-    .card-body a:hover {
-        text-decoration: underline;
-        color: #0056b3;
-    }
-</style>
+        // line 66
+        yield "        </div>
+        <hr>
+    </aside>
 
 ";
         
@@ -256,122 +237,81 @@ class __TwigTemplate_bbc063aff9c9c8c3b8cf827e2b4fa276 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  157 => 41,  150 => 37,  143 => 32,  141 => 31,  138 => 30,  131 => 26,  127 => 25,  115 => 16,  108 => 11,  106 => 10,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  205 => 66,  197 => 61,  189 => 55,  187 => 54,  184 => 53,  176 => 48,  172 => 47,  158 => 36,  150 => 30,  148 => 29,  140 => 23,  127 => 22,  104 => 20,  78 => 3,  65 => 2,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{% extends \"base.html.twig\" %}
+{% block styles %}
+    <style>
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+        0%   { background: linear-gradient(45deg, #141414, #ff9a9e); }  /* Soft Peach & Warm Pink */
+        25%  { background: linear-gradient(45deg, #273DB4, #fad0c4); }  /* Romantic Blush */
+        50%  { background: linear-gradient(45deg, #C50900, #a18cd1); }  /* Soft Lavender */
+        75%  { background: linear-gradient(45deg, #F95CA4, #ffdde1); }  /* Dreamy Pastels */
+        100% { background: linear-gradient(45deg, #ED7845, #ffebd2); } 
+         /* Sunset Glow */
+    }
+
+        body {
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+        }
+    </style>
+{% endblock %}
 
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-    <aside class=\"custom-sidebar\">
-    <h2 class=\"admin-title\">Administration</h2> <!-- Titre ajouté ici -->
+    <aside class=\"container py-4\">
+        <hr>
+        <h2 class=\"text-center  fw-bold mb-4\">Administration</h2>
+        <hr>
 
-    <div class=\"card-container\">
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMMERCIAL') %}
-            <article class=\"card\">
-                <div class=\"card-header\">
-                    Catégories
+        <div class=\"row justify-content-center\">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMMERCIAL') %}
+                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Catégories
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"{{ path('admin_categories_index') }}\" class=\"btn btn-outline-primary w-100\">Liste des catégories</a></p>
+                            <p><a href=\"#\" class=\"btn btn-outline-success w-100\">Ajouter une catégorie</a></p>
+                        </div>
+                    </div>
                 </div>
-                <div class=\"card-body\">
-                    <p><a href=\"{{ path('admin_categories_index') }}\">Liste des catégories</a></p>
-                    <p><a href=\"\">Ajouter une catégorie</a></p>
+                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Produits
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"{{ path('admin_products_index') }}\" class=\"btn btn-outline-primary w-100\">Liste des produits</a></p>
+                            <p><a href=\"{{ path('admin_products_app_produits_new') }}\" class=\"btn btn-outline-success w-100\">Ajouter un produit</a></p>
+                        </div>
+                    </div>
                 </div>
-            </article>
-            <article class=\"card\">
-                <div class=\"card-header\">
-                    Produits
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT_PARTICULIER') or is_granted('ROLE_CLIENT_PROFESSIONEL') %}
+                <div class=\"col-md-4 mb-3\">
+                    <div class=\"card shadow-sm border-0\">
+                        <div class=\"card-header bg-primary text-white text-center fw-bold\">
+                            Utilisateurs
+                        </div>
+                        <div class=\"card-body text-center\">
+                            <p><a href=\"{{ path('app_users_index') }}\" class=\"btn btn-outline-primary w-100\">Liste des utilisateurs</a></p>
+                        </div>
+                    </div>
                 </div>
-                <div class=\"card-body\">
-                    <p><a href=\"{{ path('admin_products_index') }}\">Liste des produits</a></p>
-                    <p><a href=\"{{ path('admin_products_app_produits_new') }}\">Ajouter un produit</a></p>
-                </div>
-            </article>
-        {% endif %}
+            {% endif %}
+        </div>
+        <hr>
+    </aside>
 
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT_PARTICULIER') or is_granted('ROLE_CLIENT_PROFESSIONEL') %}
-            <article class=\"card\">
-                <div class=\"card-header\">
-                    Utilisateurs
-                </div>
-                <div class=\"card-body\">
-                    <p><a href=\"{{ path('app_users_index') }}\">Liste des utilisateurs</a></p>
-                </div>
-            </article>
-        {% endif %}
-    </div>
-</aside>
-
-<style>
-    /* Conteneur principal */
-    .custom-sidebar {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Centrer le contenu */
-    }
-
-    /* Titre Administration */
-    .admin-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 15px;
-    }
-
-    /* Container des cartes */
-    .card-container {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    /* Style des cartes */
-    .card {
-        width: 250px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    /* Style des en-têtes */
-    .card-header {
-        background-color: #007bff;
-        color: white;
-        font-weight: bold;
-        padding: 10px;
-    }
-
-    /* Contenu de la carte */
-    .card-body {
-        padding: 10px;
-        flex-grow: 1;
-    }
-
-    /* Style des liens */
-    .card-body a {
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-        transition: color 0.3s ease-in-out;
-    }
-
-    /* Effet au survol */
-    .card-body a:hover {
-        text-decoration: underline;
-        color: #0056b3;
-    }
-</style>
-
-{% endblock %}", "admin/index.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/index.html.twig");
+{% endblock %}
+", "admin/index.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/admin/index.html.twig");
     }
 }

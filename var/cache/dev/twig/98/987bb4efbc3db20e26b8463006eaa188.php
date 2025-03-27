@@ -99,46 +99,45 @@ class __TwigTemplate_b99e7b4b982a4a1c031e4d895392d656 extends Template
                         <ul class=\"dropdown-menu dropdown-menu-end\">
                             ";
             // line 38
-            if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
-                // line 39
+            if (((($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COMMERCIAL") || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_CLIENT_PARTICULIER")) || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_CLIENT_PROFESSIONEL"))) {
                 yield "                                <li><a class=\"dropdown-item text-warning\" href=\"";
                 yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_index");
                 yield "\">⚙️ Admin</a></li>
                             ";
             }
-            // line 41
+            // line 40
             yield "                            <li><a class=\"dropdown-item\" href=\"";
-            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("main");
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("profile_index");
             yield "\">👤 Profile</a></li>
                             <li><a class=\"dropdown-item text-danger logout-btn\" href=\"";
-            // line 42
+            // line 41
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             yield "\">🚪 Logout</a></li>
                         </ul>
                     </li>
                 ";
         } else {
-            // line 46
+            // line 45
             yield "                    <li class=\"nav-item\">
                         <a class=\"nav-link text-success fw-bold\" href=\"";
-            // line 47
+            // line 46
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\">📝 Sign Up</a>
                     </li>
                     <li class=\"nav-item\">
                         <a class=\"nav-link text-info fw-bold\" href=\"";
-            // line 50
+            // line 49
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\">🔑 Login</a>
                     </li>
                 ";
         }
-        // line 53
+        // line 52
         yield "                
                 <!-- Cart Link -->
                 <li class=\"nav-item ms-3\">
                     <a class=\"nav-link fw-bold cart-link\" href=\"";
-        // line 56
+        // line 55
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("cart_index");
         yield "\">🛒 Panier</a>
                 </li>
@@ -233,7 +232,7 @@ class __TwigTemplate_b99e7b4b982a4a1c031e4d895392d656 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  142 => 56,  137 => 53,  131 => 50,  125 => 47,  122 => 46,  115 => 42,  110 => 41,  104 => 39,  102 => 38,  94 => 32,  92 => 31,  83 => 25,  77 => 22,  71 => 19,  54 => 5,  48 => 1,);
+        return array (  141 => 55,  136 => 52,  130 => 49,  124 => 46,  121 => 45,  114 => 41,  109 => 40,  102 => 38,  94 => 32,  92 => 31,  83 => 25,  77 => 22,  71 => 19,  54 => 5,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -275,10 +274,9 @@ class __TwigTemplate_b99e7b4b982a4a1c031e4d895392d656 extends Template
                             👤 Account
                         </a>
                         <ul class=\"dropdown-menu dropdown-menu-end\">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li><a class=\"dropdown-item text-warning\" href=\"{{ path('admin_index') }}\">⚙️ Admin</a></li>
+                            {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_ADMIN') or is_granted('ROLE_CLIENT_PARTICULIER') or is_granted('ROLE_CLIENT_PROFESSIONEL') %}                                <li><a class=\"dropdown-item text-warning\" href=\"{{ path('admin_index') }}\">⚙️ Admin</a></li>
                             {% endif %}
-                            <li><a class=\"dropdown-item\" href=\"{{ path('main') }}\">👤 Profile</a></li>
+                            <li><a class=\"dropdown-item\" href=\"{{ path('profile_index') }}\">👤 Profile</a></li>
                             <li><a class=\"dropdown-item text-danger logout-btn\" href=\"{{ path('app_logout') }}\">🚪 Logout</a></li>
                         </ul>
                     </li>
