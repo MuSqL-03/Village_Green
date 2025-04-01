@@ -180,7 +180,7 @@ class __TwigTemplate_946f79dcfd5e9d81e0fe33d2286b2c9c extends Template
             // line 45
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_app_produits_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["product"], "id", [], "any", false, false, false, 45)]), "html", null, true);
             yield "\" class=\"btn btn-warning btn-sm me-1\" title=\"Edit\">
-                                            <i class=\"bi bi-pencil\">Modifie</i>
+                                            <i class=\"bi bi-pencil\">Modifier</i>
                                         </a>
                                     </td>
                                 </tr>
@@ -295,7 +295,7 @@ class __TwigTemplate_946f79dcfd5e9d81e0fe33d2286b2c9c extends Template
                                             <i class=\"bi bi-eye\">Voir</i>
                                         </a>
                                         <a href=\"{{ path('admin_products_app_produits_edit', {'id': product.id}) }}\" class=\"btn btn-warning btn-sm me-1\" title=\"Edit\">
-                                            <i class=\"bi bi-pencil\">Modifie</i>
+                                            <i class=\"bi bi-pencil\">Modifier</i>
                                         </a>
                                     </td>
                                 </tr>

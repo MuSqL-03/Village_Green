@@ -71,12 +71,12 @@ class __TwigTemplate_b99e7b4b982a4a1c031e4d895392d656 extends Template
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("main");
         yield "\">🏠 Home</a>
                 </li>
-                <li class=\"nav-item\">
+               <!--  <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
         // line 22
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("main");
         yield "\">📂 Categories</a>
-                </li>
+                </li> -->
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
         // line 25
@@ -257,9 +257,9 @@ class __TwigTemplate_b99e7b4b982a4a1c031e4d895392d656 extends Template
                 <li class=\"nav-item\">
                     <a class=\"nav-link active\" href=\"{{ path('main') }}\">🏠 Home</a>
                 </li>
-                <li class=\"nav-item\">
+               <!--  <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('main') }}\">📂 Categories</a>
-                </li>
+                </li> -->
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"{{ path('products_index') }}\">🛍️ Products</a>
                 </li>

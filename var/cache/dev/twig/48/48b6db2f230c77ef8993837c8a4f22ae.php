@@ -189,7 +189,7 @@ class __TwigTemplate_9acd0068fe99c7856a1e6df4de8da517 extends Template
         // line 60
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_products_app_produits_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["product"]) || array_key_exists("product", $context) ? $context["product"] : (function () { throw new RuntimeError('Variable "product" does not exist.', 60, $this->source); })()), "id", [], "any", false, false, false, 60)]), "html", null, true);
         yield "\" class=\"btn btn-warning btn-lg me-2\">
-                <i class=\"bi bi-pencil\">Modifie</i> 
+                <i class=\"bi bi-pencil\">Modifier</i> 
             </a>
             ";
         // line 63
@@ -293,7 +293,7 @@ class __TwigTemplate_9acd0068fe99c7856a1e6df4de8da517 extends Template
                 <i class=\"bi bi-arrow-left\">Retour </i> 
             </a>
             <a href=\"{{ path('admin_products_app_produits_edit', {'id': product.id}) }}\" class=\"btn btn-warning btn-lg me-2\">
-                <i class=\"bi bi-pencil\">Modifie</i> 
+                <i class=\"bi bi-pencil\">Modifier</i> 
             </a>
             {{ include('admin/produits/_delete_form.html.twig') }}
         </div>

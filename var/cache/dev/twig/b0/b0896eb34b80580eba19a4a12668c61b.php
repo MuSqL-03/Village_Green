@@ -98,7 +98,7 @@ class __TwigTemplate_5ffad5a9b575219b1676505dc0077135 extends Template
 
         // line 6
         yield "    <div class=\"container mt-5\">
-        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifie les produits</h1>
+        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifier les produits</h1>
 
         <div class=\"card shadow-lg p-4 mb-5 bg-white rounded\">
             <div class=\"card-body\">
@@ -164,7 +164,7 @@ class __TwigTemplate_5ffad5a9b575219b1676505dc0077135 extends Template
 
 {% block body %}
     <div class=\"container mt-5\">
-        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifie les produits</h1>
+        <h1 class=\"mb-4 text-primary text-center fw-bold\">Modifier les produits</h1>
 
         <div class=\"card shadow-lg p-4 mb-5 bg-white rounded\">
             <div class=\"card-body\">

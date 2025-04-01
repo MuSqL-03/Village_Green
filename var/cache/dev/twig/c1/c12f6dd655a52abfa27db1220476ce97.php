@@ -181,6 +181,11 @@ class __TwigTemplate_2961b42808b788879cf60a69902602c9 extends Template
         yield "    </div>
 
 </body>
+";
+        // line 108
+        yield from $this->loadTemplate("_partials/_footer.html.twig", "base.html.twig", 108)->unwrap()->yield($context);
+        // line 109
+        yield "
 </html>
 ";
         
@@ -280,7 +285,7 @@ class __TwigTemplate_2961b42808b788879cf60a69902602c9 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  241 => 104,  219 => 14,  196 => 6,  181 => 105,  179 => 104,  173 => 100,  171 => 99,  99 => 30,  92 => 26,  87 => 23,  85 => 22,  81 => 20,  75 => 15,  73 => 14,  67 => 12,  63 => 9,  58 => 6,  51 => 1,);
+        return array (  246 => 104,  224 => 14,  201 => 6,  188 => 109,  186 => 108,  181 => 105,  179 => 104,  173 => 100,  171 => 99,  99 => 30,  92 => 26,  87 => 23,  85 => 22,  81 => 20,  75 => 15,  73 => 14,  67 => 12,  63 => 9,  58 => 6,  51 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -392,6 +397,8 @@ class __TwigTemplate_2961b42808b788879cf60a69902602c9 extends Template
     </div>
 
 </body>
+{% include \"_partials/_footer.html.twig\" %}
+
 </html>
 ", "base.html.twig", "/home/mohamed-abshir/dev/CDA/Mon_Projet/avec Api+react/Vilage_Green/templates/base.html.twig");
     }
